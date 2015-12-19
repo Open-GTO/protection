@@ -85,14 +85,14 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
-#include "protection/lib/getspawninfo/getspawninfo"
+#include "lib/getspawninfo/getspawninfo"
 
-#include "protection/protection/teleport"
-#include "protection/protection/interior"
-#include "protection/protection/specialaction"
-#include "protection/protection/rcon"
-#include "protection/protection/ping"
-#include "protection/protection/health"
+#include "protection/teleport"
+#include "protection/interior"
+#include "protection/specialaction"
+#include "protection/rcon"
+#include "protection/ping"
+#include "protection/health"
 
 /*
 	Vars
