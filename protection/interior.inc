@@ -25,7 +25,7 @@
 */
 
 static
-	Float:gPlayerInterior[MAX_PLAYERS char];
+	gPlayerInterior[MAX_PLAYERS char];
 
 
 /*
@@ -37,7 +37,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED) != 0;
 	
 	if (is_enabled && gPlayerInterior{playerid} != newinteriorid) {
-		SetPlayerInterior(playerid, _:gPlayerInterior{playerid});
+		SetPlayerInterior(playerid, gPlayerInterior{playerid});
 		Protection_GivePlayerWarning(playerid, PROTECTION_INTERIOR, "%d != %d", gPlayerInterior{playerid}, newinteriorid);
 	}
 
