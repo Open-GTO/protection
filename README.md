@@ -81,7 +81,7 @@ public OnPlayerGetProtectionWarning(playerid, Protection:protection, bool:warn_r
 		string[144],
 		protection_name[32];
 
-	Protection_GetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, protection_name);
+	Protection_GetParamString(protection, PROTECTION_NAME, protection_name);
 
 	format(string, sizeof(string), "* Player: %d | Warn reached: %d | Name: %s | Message: %s", playerid, _:warn_reached, protection_name, message);
 	SendClientMessageToAll(-1, string);
