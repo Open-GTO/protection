@@ -52,6 +52,7 @@ enum Protection {
 	PROTECTION_INTERIOR,
 	PROTECTION_SPECIALACTION,
 	PROTECTION_RCON,
+	PROTECTION_PING,
 }
 
 enum ProtectionParams {
@@ -63,6 +64,7 @@ enum ProtectionParams {
 	PROTECTION_MAX_WARNINGS,
 	Float:PROTECTION_MAX_DISTANCE,
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
+	PROTECTION_MAX_PING,
 }
 
 enum ProtectionPlayerParams {
@@ -72,6 +74,7 @@ enum ProtectionPlayerParams {
 enum ProtectionPlayerInfo {
 	bool:PROTECTION_PLAYER_SPAWNED,
 	PROTECTION_PLAYER_IP[PROTECTION_MAX_IP + 1],
+	PROTECTION_PLAYER_PING,
 }
 
 /*
@@ -84,6 +87,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/interior"
 #include "protection/protection/specialaction"
 #include "protection/protection/rcon"
+#include "protection/protection/ping"
 
 /*
 	Vars
@@ -108,10 +112,10 @@ public OnGameModeInit()
 
 	// teleport
 	Protection_SetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED, 1);
-	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_VEHICLE_DISTANCE, 140.0);
-	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_DISTANCE, 80.0);
 	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, "Teleport");
 	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_FUNCTION, "Protection_Teleport");
+	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_VEHICLE_DISTANCE, 140.0);
+	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_DISTANCE, 80.0);
 
 	// interior (disabled, but is automatically activated when used DisableInteriorEnterExits)
 	Protection_SetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED, 0);
@@ -125,6 +129,12 @@ public OnGameModeInit()
 	// rcon
 	Protection_SetParamInt(PROTECTION_RCON, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_RCON, PROTECTION_NAME, "Rcon");
+
+	// ping
+	Protection_SetParamInt(PROTECTION_PING, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_PING, PROTECTION_NAME, "Ping");
+	Protection_SetParamString(PROTECTION_PING, PROTECTION_FUNCTION, "Protection_Ping");
+	Protection_SetParamInt(PROTECTION_PING, PROTECTION_MAX_PING, 500);
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
@@ -223,6 +233,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 public Protection_Timer()
 {
 	static
+		player_ping,
 		Protection:current_prot,
 		current_tick,
 		last_tick,
@@ -231,6 +242,9 @@ public Protection_Timer()
 	current_tick = GetTickCount();
 
 	foreach (new playerid : Player) {
+		player_ping = GetPlayerPing(playerid);
+		Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_PING, player_ping);
+
 		for (new i = 1; i < sizeof(gParam); i++) {
 			current_prot = Protection:i;
 			
@@ -254,7 +268,7 @@ public Protection_Timer()
 			// delay check
 			last_tick = Protection_GetParamInt(current_prot, PROTECTION_LAST_TICKCOUNT);
 
-			if (current_tick - last_tick < Protection_GetParamInt(current_prot, PROTECTION_CHECK_DELAY)) {
+			if (current_tick - last_tick < player_ping + Protection_GetParamInt(current_prot, PROTECTION_CHECK_DELAY)) {
 				continue;
 			}
 
