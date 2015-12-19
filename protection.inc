@@ -70,7 +70,8 @@ enum ProtectionParams {
 }
 
 enum ProtectionPlayerParams {
-	PROTECTION_WARNING_COUNT,
+	PROTECTION_PLAYER_DISABLED,
+	PROTECTION_PLAYER_WARNING_COUNT,
 }
 
 enum ProtectionPlayerInfo {
@@ -277,6 +278,11 @@ public Protection_Timer()
 				continue;
 			}
 
+			// player enabled check
+			if (Protection_GetPlayerParamInt(playerid, current_prot, PROTECTION_PLAYER_DISABLED)) {
+				continue;
+			}
+
 			// exists check
 			Protection_GetParamString(current_prot, PROTECTION_FUNCTION, function);
 
@@ -313,10 +319,10 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 
 	warn_max = Protection_GetParamInt(protection, PROTECTION_MAX_WARNINGS);
 
-	warn_count = Protection_GetPlayerParamInt(playerid, protection, PROTECTION_WARNING_COUNT);
+	warn_count = Protection_GetPlayerParamInt(playerid, protection, PROTECTION_PLAYER_WARNING_COUNT);
 	warn_count++;
 
-	Protection_SetPlayerParamInt(playerid, protection, PROTECTION_WARNING_COUNT, warn_count);
+	Protection_SetPlayerParamInt(playerid, protection, PROTECTION_PLAYER_WARNING_COUNT, warn_count);
 
 	// format
 	if (funcidx("OnPlayerGetProtectionWarning") == -1) {
