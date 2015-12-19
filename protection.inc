@@ -73,6 +73,8 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
+#include "lib/getspawninfo/getspawninfo"
+
 #include "protection/teleport"
 
 /*

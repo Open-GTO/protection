@@ -9,6 +9,10 @@
 	#error "Please include protection before teleport"
 #endif
 
+#if !defined _getspawninfo_included
+	#error "Please include getspawninfo before teleport"
+#endif
+
 #if defined _protection_teleport_included
 	#endinput
 #endif
@@ -62,6 +66,41 @@ public Protection_Teleport(playerid)
 
 	return 0;
 }
+
+/*
+	OnPlayerSpawn
+*/
+
+public OnPlayerSpawn(playerid)
+{
+	static
+		Float:si_x,
+		Float:si_y;
+
+	GetSpawnInfo(playerid, _, _, si_x, si_y, _, _, _, _, _, _, _, _);
+	
+	gPrevPos[playerid][0] = si_x;
+	gPrevPos[playerid][1] = si_y;
+
+	gOldPos[playerid][0] = si_x;
+	gOldPos[playerid][1] = si_y;
+
+	#if defined Protection_OnPlayerSpawn
+		return Protection_OnPlayerSpawn(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+ 
+#define OnPlayerSpawn Protection_OnPlayerSpawn
+#if defined Protection_OnPlayerSpawn
+	forward Protection_OnPlayerSpawn(playerid);
+#endif
 
 /*
 	SetPlayerPos

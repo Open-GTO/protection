@@ -1,0 +1,3 @@
+[submodule "lib/getspawninfo"]
+	path = lib/getspawninfo
+	url = https://github.com/Open-GTO/getspawninfo.git
