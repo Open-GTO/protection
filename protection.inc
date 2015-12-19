@@ -29,6 +29,7 @@
 #endif
 
 #define PROTECTION_MAX_STRING 32
+#define PROTECTION_MAX_IP     14
 
 /*
 	Forward	
@@ -37,7 +38,7 @@
 forward Protection_Timer();
 forward Float:Protection_GetParamFloat(Protection:protection, ProtectionParams:param);
 forward Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param);
-forward Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerParams:param);
+forward Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param);
 
 forward OnPlayerGetProtectionWarning(playerid, Protection:protection, bool:warn_reached, message[]);
 
@@ -50,6 +51,7 @@ enum Protection {
 	PROTECTION_TELEPORT,
 	PROTECTION_INTERIOR,
 	PROTECTION_SPECIALACTION,
+	PROTECTION_RCON,
 }
 
 enum ProtectionParams {
@@ -69,6 +71,7 @@ enum ProtectionPlayerParams {
 
 enum ProtectionPlayerInfo {
 	bool:PROTECTION_PLAYER_SPAWNED,
+	PROTECTION_PLAYER_IP[PROTECTION_MAX_IP + 1],
 }
 
 /*
@@ -80,6 +83,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/teleport"
 #include "protection/protection/interior"
 #include "protection/protection/specialaction"
+#include "protection/protection/rcon"
 
 /*
 	Vars
@@ -118,6 +122,10 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_SPECIALACTION, PROTECTION_NAME, "Special action");
 	Protection_SetParamString(PROTECTION_SPECIALACTION, PROTECTION_FUNCTION, "Protection_SpecialAction");
 
+	// rcon
+	Protection_SetParamInt(PROTECTION_RCON, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_RCON, PROTECTION_NAME, "Rcon");
+
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
 
@@ -151,6 +159,13 @@ public OnGameModeInit()
 public OnPlayerConnect(playerid)
 {
 	gPlayerParam[playerid] = NULL_gPlayerParam;
+
+	new
+		player_ip[PROTECTION_MAX_IP + 1];
+
+	GetPlayerIp(playerid, player_ip, sizeof(player_ip));
+
+	Protection_SetPlayerInfoString(playerid, PROTECTION_PLAYER_IP, player_ip);
 
 	#if defined Protection_OnPlayerConnect
 		return Protection_OnPlayerConnect(playerid);
@@ -425,7 +440,7 @@ stock Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, Prot
 	Player string params
 */
 
-stock Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[])
+stock Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[])
 {
 	if (protection == PROTECTION_ALL) {
 		for (new i = 0; i < sizeof(gPlayerParam[]); i++) {
@@ -436,7 +451,7 @@ stock Protection_SetPlayerParamString(playerid, Protection:protection, Protectio
 	}
 }
 
-stock Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[], size = sizeof(value))
+stock Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[], size = sizeof(value))
 {
 	strmid(value, gPlayerParam[playerid][protection][param], 0, strlen(gPlayerParam[playerid][protection][param]), size);
 }
@@ -459,12 +474,12 @@ stock Protection_GetPlayerInfoInt(playerid, ProtectionPlayerInfo:param)
 	Player info float params
 */
 
-stock Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerParams:param, Float:value)
+stock Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param, Float:value)
 {
 	gPlayerInfo[playerid][param] = value;
 }
 
-stock Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerParams:param)
+stock Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param)
 {
 	return gPlayerInfo[playerid][param];
 }
@@ -473,12 +488,12 @@ stock Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerParams:param
 	Player info string params
 */
 
-stock Protection_SetPlayerInfoString(playerid, ProtectionParams:param, value[])
+stock Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[])
 {
 	strmid(gPlayerInfo[playerid][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
 }
 
-stock Protection_GetPlayerInfoString(playerid, ProtectionParams:param, value[], size = sizeof(value))
+stock Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value))
 {
 	strmid(value, gPlayerInfo[playerid][param], 0, strlen(gPlayerInfo[playerid][param]), size);
 }
