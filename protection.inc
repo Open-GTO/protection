@@ -48,6 +48,7 @@ forward OnPlayerGetProtectionWarning(playerid, Protection:protection, bool:warn_
 enum Protection {
 	PROTECTION_ALL,
 	PROTECTION_TELEPORT,
+	PROTECTION_INTERIOR,
 }
 
 enum ProtectionParams {
@@ -73,9 +74,10 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
-#include "lib/getspawninfo/getspawninfo"
+#include "protection/lib/getspawninfo/getspawninfo"
 
-#include "protection/teleport"
+#include "protection/protection/teleport"
+#include "protection/protection/interior"
 
 /*
 	Vars
@@ -95,18 +97,28 @@ static const
 
 public OnGameModeInit()
 {
-	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_ENABLED, 1);
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_CHECK_DELAY, 1000);
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_MAX_WARNINGS, 3);
 
 	// teleport
+	Protection_SetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED, 1);
 	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_VEHICLE_DISTANCE, 140.0);
 	Protection_SetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_DISTANCE, 80.0);
 	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, "Teleport");
 	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_FUNCTION, "Protection_Teleport");
 
+	// interior (disabled, but is automatically activated when used DisableInteriorEnterExits)
+	Protection_SetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED, 0);
+	Protection_SetParamString(PROTECTION_INTERIOR, PROTECTION_NAME, "Interior");
+
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
+
+	// compiler crash fix
+#if __Pawn != 0x030A
+	new crash_fix[1];
+	format(crash_fix, 1, "");
+#endif
 
 	#if defined Protection_OnGameModeInit
 		return Protection_OnGameModeInit();
@@ -200,6 +212,11 @@ public Protection_Timer()
 		for (new i = 1; i < sizeof(gParam); i++) {
 			current_prot = Protection:i;
 			
+			// spawned check
+			if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
+				continue;
+			}
+
 			// enabled check
 			if (!Protection_GetParamInt(current_prot, PROTECTION_ENABLED)) {
 				continue;
@@ -250,9 +267,10 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 	if (funcidx("OnPlayerGetProtectionWarning") == -1) {
 		return 0;
 	}
-
+	
+	#define BYTES_PER_CELL 4
 	static const STATIC_ARGS = 3;
-	new n = (numargs() - STATIC_ARGS) * 4;
+	new n = (numargs() - STATIC_ARGS) * BYTES_PER_CELL;
 	if (n) {
 		new message[144], arg_start, arg_end;
 		#emit CONST.alt			fstring
@@ -266,7 +284,7 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 		do {
 			#emit LOAD.I
 			#emit PUSH.pri
-			arg_end -= 4;
+			arg_end -= BYTES_PER_CELL;
 			#emit LOAD.S.pri	arg_end
 		} while (arg_end > arg_start);
 
@@ -274,11 +292,11 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 		#emit PUSH.C			144
 		#emit PUSH.ADR			message
 
-		n += 4 * 3;
+		n += BYTES_PER_CELL * 3;
 		#emit PUSH.S			n
 		#emit SYSREQ.C			format
 
-		n += 4;
+		n += BYTES_PER_CELL;
 		#emit LCTRL				4
 		#emit LOAD.S.alt		n
 		#emit ADD
