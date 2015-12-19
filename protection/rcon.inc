@@ -1,12 +1,12 @@
 /*
 
-	About: specialaction protection
+	About: rcon protection
 	Author: ziggi
 
 */
 
 #if !defined _protection_included
-	#error "Please include protection before specialaction"
+	#error "Please include protection before rcon"
 #endif
 
 #if defined _protection_rcon_included
