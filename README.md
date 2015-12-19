@@ -20,7 +20,7 @@ Protection_GetParamString(Protection:protection, ProtectionParams:param, value[]
 Protection_SetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param, value)
 Protection_GetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param)
 Protection_SetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param, Float:value)
-Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param)
+Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param)
 Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[])
 Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[], size = sizeof(value))
 
