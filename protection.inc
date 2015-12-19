@@ -49,6 +49,7 @@ enum Protection {
 	PROTECTION_ALL,
 	PROTECTION_TELEPORT,
 	PROTECTION_INTERIOR,
+	PROTECTION_SPECIALACTION,
 }
 
 enum ProtectionParams {
@@ -78,6 +79,7 @@ enum ProtectionPlayerInfo {
 
 #include "protection/protection/teleport"
 #include "protection/protection/interior"
+#include "protection/protection/specialaction"
 
 /*
 	Vars
@@ -110,6 +112,11 @@ public OnGameModeInit()
 	// interior (disabled, but is automatically activated when used DisableInteriorEnterExits)
 	Protection_SetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED, 0);
 	Protection_SetParamString(PROTECTION_INTERIOR, PROTECTION_NAME, "Interior");
+
+	// special action
+	Protection_SetParamInt(PROTECTION_SPECIALACTION, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_SPECIALACTION, PROTECTION_NAME, "Special action");
+	Protection_SetParamString(PROTECTION_SPECIALACTION, PROTECTION_FUNCTION, "Protection_SpecialAction");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
