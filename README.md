@@ -21,16 +21,16 @@ Protection_SetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerPa
 Protection_GetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param)
 Protection_SetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param, Float:value)
 Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param)
-Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[])
-Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionParams:param, value[], size = sizeof(value))
+Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[])
+Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[], size = sizeof(value))
 
 // player info
 Protection_SetPlayerInfoInt(playerid, ProtectionPlayerInfo:param, value)
 Protection_GetPlayerInfoInt(playerid, ProtectionPlayerInfo:param)
-Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerParams:param, Float:value)
-Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerParams:param)
-Protection_SetPlayerInfoString(playerid, ProtectionParams:param, value[])
-Protection_GetPlayerInfoString(playerid, ProtectionParams:param, value[], size = sizeof(value))
+Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param, Float:value)
+Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param)
+Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[])
+Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value))
 ```
 
 # Function params
@@ -38,6 +38,11 @@ Protection_GetPlayerInfoString(playerid, ProtectionParams:param, value[], size =
 enum Protection {
 	PROTECTION_ALL,
 	PROTECTION_TELEPORT,
+	PROTECTION_INTERIOR,
+	PROTECTION_SPECIALACTION,
+	PROTECTION_RCON,
+	PROTECTION_PING,
+	PROTECTION_HEALTH,
 }
 
 enum ProtectionParams {
@@ -46,17 +51,23 @@ enum ProtectionParams {
 	bool:PROTECTION_ENABLED,
 	PROTECTION_CHECK_DELAY,
 	PROTECTION_LAST_TICKCOUNT,
+	PROTECTION_SPAWN_DELAY,
 	PROTECTION_MAX_WARNINGS,
 	Float:PROTECTION_MAX_DISTANCE,
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
+	PROTECTION_MAX_PING,
 }
 
 enum ProtectionPlayerParams {
-	PROTECTION_WARNING_COUNT,
+	PROTECTION_PLAYER_DISABLED,
+	PROTECTION_PLAYER_WARNING_COUNT,
 }
 
 enum ProtectionPlayerInfo {
 	bool:PROTECTION_PLAYER_SPAWNED,
+	PROTECTION_PLAYER_IP[PROTECTION_MAX_IP + 1],
+	PROTECTION_PLAYER_PING,
+	PROTECTION_PLAYER_SPAWN_TICK,
 }
 ```
 
@@ -70,8 +81,19 @@ main() {}
 
 public OnGameModeInit()
 {
+	// enable all protections
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_ENABLED, 1);
-	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, "Телепорт"); // redefine name
+	// redefine name
+	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, "Телепорт");
+	return 1;
+}
+
+public OnPlayerSpawn(playerid)
+{
+	// disable all protection for admin
+	if (IsPlayerAdmin(playerid)) {
+		Protection_SetPlayerParamInt(playerid, PROTECTION_ALL, PROTECTION_PLAYER_DISABLED, 1);
+	}
 	return 1;
 }
 
