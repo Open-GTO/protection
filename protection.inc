@@ -53,6 +53,7 @@ enum Protection {
 	PROTECTION_SPECIALACTION,
 	PROTECTION_RCON,
 	PROTECTION_PING,
+	PROTECTION_HEALTH,
 }
 
 enum ProtectionParams {
@@ -61,6 +62,7 @@ enum ProtectionParams {
 	bool:PROTECTION_ENABLED,
 	PROTECTION_CHECK_DELAY,
 	PROTECTION_LAST_TICKCOUNT,
+	PROTECTION_SPAWN_DELAY,
 	PROTECTION_MAX_WARNINGS,
 	Float:PROTECTION_MAX_DISTANCE,
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
@@ -75,6 +77,7 @@ enum ProtectionPlayerInfo {
 	bool:PROTECTION_PLAYER_SPAWNED,
 	PROTECTION_PLAYER_IP[PROTECTION_MAX_IP + 1],
 	PROTECTION_PLAYER_PING,
+	PROTECTION_PLAYER_SPAWN_TICK,
 }
 
 /*
@@ -88,6 +91,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/specialaction"
 #include "protection/protection/rcon"
 #include "protection/protection/ping"
+#include "protection/protection/health"
 
 /*
 	Vars
@@ -109,6 +113,7 @@ public OnGameModeInit()
 {
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_CHECK_DELAY, 1000);
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_MAX_WARNINGS, 3);
+	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_SPAWN_DELAY, 600);
 
 	// teleport
 	Protection_SetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED, 1);
@@ -135,6 +140,11 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_PING, PROTECTION_NAME, "Ping");
 	Protection_SetParamString(PROTECTION_PING, PROTECTION_FUNCTION, "Protection_Ping");
 	Protection_SetParamInt(PROTECTION_PING, PROTECTION_MAX_PING, 500);
+
+	// health
+	Protection_SetParamInt(PROTECTION_HEALTH, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_NAME, "Health");
+	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_FUNCTION, "Protection_Health");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
@@ -203,6 +213,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	switch (newstate) {
 		case PLAYER_STATE_SPAWNED: {
 			Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED, 1);
+			Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWN_TICK, GetTickCount());
 		}
 		case PLAYER_STATE_WASTED, PLAYER_STATE_SPECTATING: {
 			Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED, 0);
@@ -235,6 +246,7 @@ public Protection_Timer()
 	static
 		player_ping,
 		Protection:current_prot,
+		spawn_tick,
 		current_tick,
 		last_tick,
 		function[PROTECTION_MAX_STRING];
@@ -245,11 +257,18 @@ public Protection_Timer()
 		player_ping = GetPlayerPing(playerid);
 		Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_PING, player_ping);
 
+		spawn_tick = Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWN_TICK);
+
 		for (new i = 1; i < sizeof(gParam); i++) {
 			current_prot = Protection:i;
 			
 			// spawned check
 			if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
+				continue;
+			}
+
+			// spawn delay
+			if (current_tick - spawn_tick < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
 				continue;
 			}
 
