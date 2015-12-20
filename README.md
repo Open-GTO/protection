@@ -90,7 +90,7 @@ public OnGameModeInit()
 
 public OnPlayerSpawn(playerid)
 {
-	// disable all protection for admin
+	// disable all protections for admin
 	if (IsPlayerAdmin(playerid)) {
 		Protection_SetPlayerParamInt(playerid, PROTECTION_ALL, PROTECTION_PLAYER_DISABLED, 1);
 	}
