@@ -104,7 +104,8 @@ static
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
 static const
-	NULL_gPlayerParam[Protection][ProtectionPlayerParams];
+	NULL_gPlayerParam[Protection][ProtectionPlayerParams]
+	NULL_gPlayerInfo[ProtectionPlayerInfo];
 
 /*
 	OnGameModeInit
@@ -179,8 +180,11 @@ public OnGameModeInit()
 
 public OnPlayerConnect(playerid)
 {
+	// reset arrays data
 	gPlayerParam[playerid] = NULL_gPlayerParam;
+	gPlayerInfo[playerid] = NULL_gPlayerInfo;
 
+	// store connect data
 	new
 		player_ip[PROTECTION_MAX_IP + 1];
 
