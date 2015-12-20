@@ -104,7 +104,7 @@ static
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
 static const
-	NULL_gPlayerParam[Protection][ProtectionPlayerParams]
+	NULL_gPlayerParam[Protection][ProtectionPlayerParams],
 	NULL_gPlayerInfo[ProtectionPlayerInfo];
 
 /*
