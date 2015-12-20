@@ -263,14 +263,14 @@ public Protection_Timer()
 		Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_PING, player_ping);
 
 		spawn_tick = Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWN_TICK);
+			
+		// spawned check
+		if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
+			continue;
+		}
 
 		for (new i = 1; i < sizeof(gParam); i++) {
 			current_prot = Protection:i;
-			
-			// spawned check
-			if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
-				continue;
-			}
 
 			// spawn delay
 			if (current_tick - spawn_tick < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
