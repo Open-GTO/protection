@@ -300,7 +300,7 @@ public Protection_Timer()
 			Protection_SetParamInt(current_prot, PROTECTION_LAST_TICKCOUNT, current_tick);
 
 			// execute
-			CallLocalFunction(function, "i", playerid);
+			CallRemoteFunction(function, "i", playerid);
 		}
 	}
 
@@ -363,13 +363,13 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 		#emit ADD
 		#emit SCTRL				4
 
-		CallLocalFunction("OnPlayerGetProtectionWarning", "iiis", playerid, _:protection, warn_count >= warn_max, message);
+		CallRemoteFunction("OnPlayerGetProtectionWarning", "iiis", playerid, _:protection, warn_count >= warn_max, message);
 	} else {
 		if (fstring[0] == '\0') {
 			fstring[0] = '\1';
 		}
 
-		CallLocalFunction("OnPlayerGetProtectionWarning", "iiis", playerid, _:protection, warn_count >= warn_max, fstring);
+		CallRemoteFunction("OnPlayerGetProtectionWarning", "iiis", playerid, _:protection, warn_count >= warn_max, fstring);
 	}
 
 	return 1;
