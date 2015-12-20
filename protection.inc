@@ -329,13 +329,11 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 	Protection_SetPlayerParamInt(playerid, protection, PROTECTION_PLAYER_WARNING_COUNT, warn_count);
 
 	// format
-	if (funcidx("OnPlayerGetProtectionWarning") == -1) {
-		return 0;
-	}
-	
 	#define BYTES_PER_CELL 4
 	static const STATIC_ARGS = 3;
+
 	new n = (numargs() - STATIC_ARGS) * BYTES_PER_CELL;
+
 	if (n) {
 		new message[144], arg_start, arg_end;
 		#emit CONST.alt			fstring
