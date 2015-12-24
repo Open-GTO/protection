@@ -56,6 +56,7 @@ enum Protection {
 	PROTECTION_HEALTH,
 	PROTECTION_ARMOUR,
 	PROTECTION_VEHICLETELEPORT,
+	PROTECTION_WEAPON,
 }
 
 enum ProtectionParams {
@@ -97,6 +98,7 @@ enum ProtectionPlayerInfo {
 #include "protection/health"
 #include "protection/armour"
 #include "protection/vehicleteleport"
+#include "protection/weapon"
 
 /*
 	Vars
@@ -161,6 +163,11 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_VEHICLETELEPORT, PROTECTION_NAME, "Vehicle Teleport");
 	Protection_SetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE, 20.0);
+
+	// weapon
+	Protection_SetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_WEAPON, PROTECTION_NAME, "Weapon");
+	Protection_SetParamString(PROTECTION_WEAPON, PROTECTION_FUNCTION, "Protection_Weapon");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
