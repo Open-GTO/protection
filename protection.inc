@@ -54,6 +54,7 @@ enum Protection {
 	PROTECTION_RCON,
 	PROTECTION_PING,
 	PROTECTION_HEALTH,
+	PROTECTION_ARMOUR,
 	PROTECTION_VEHICLETELEPORT,
 }
 
@@ -148,6 +149,11 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_HEALTH, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_NAME, "Health");
 	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_FUNCTION, "Protection_Health");
+
+	// armour
+	Protection_SetParamInt(PROTECTION_ARMOUR, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_ARMOUR, PROTECTION_NAME, "Armour");
+	Protection_SetParamString(PROTECTION_ARMOUR, PROTECTION_FUNCTION, "Protection_Armour");
 
 	// vehicleteleport
 	Protection_SetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_ENABLED, 1);
