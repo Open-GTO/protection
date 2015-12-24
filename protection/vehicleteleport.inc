@@ -13,12 +13,12 @@
 	#error "Please include getspawninfo before vehicleteleport"
 #endif
 
-#if defined _protection_vehicleteleport_included
+#if defined _protection_vehicletp_included
 	#endinput
 #endif
 
-#define _protection_vehicleteleport_included
-#pragma library protection_vehicleteleport
+#define _protection_vehicletp_included
+#pragma library protection_vehicletp
 
 /*
 	OnUnoccupiedVehicleU
@@ -34,7 +34,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 		Float:pos_z;
 
 	GetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
-	distance = GetDistanceBetweenPoints(pos_x, pos_y, pos_z, new_x, new_y, new_z);
+	distance = VectorSize(pos_x - new_x, pos_y - new_y, pos_z - new_z);
 	max_distance = Protection_GetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE);
 
 	if (distance > max_distance) {

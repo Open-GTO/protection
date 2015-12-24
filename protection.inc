@@ -95,6 +95,8 @@ enum ProtectionPlayerInfo {
 #include "protection/rcon"
 #include "protection/ping"
 #include "protection/health"
+#include "protection/armour"
+#include "protection/vehicleteleport"
 
 /*
 	Vars
