@@ -144,7 +144,7 @@ stock Protection_SetPlayerAmmo(playerid, weaponid, ammo)
 	static
 		slot;
 	
-	slot = Protection_GetWeaponSlot(weaponid)
+	slot = Protection_GetWeaponSlot(weaponid);
 	if (slot == -1) {
 		return 0;
 	}
