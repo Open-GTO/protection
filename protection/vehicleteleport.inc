@@ -9,10 +9,6 @@
 	#error "Please include protection before vehicleteleport"
 #endif
 
-#if !defined _getspawninfo_included
-	#error "Please include getspawninfo before vehicleteleport"
-#endif
-
 #if defined _protection_vehicletp_included
 	#endinput
 #endif
