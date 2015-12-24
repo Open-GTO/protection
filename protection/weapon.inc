@@ -94,16 +94,15 @@ static
 stock Protection_GivePlayerWeapon(playerid, weaponid, ammo)
 {
 	static
-		slotid;
+		slot;
 	
-	slotid = Protection_GetWeaponSlot(weaponid);
-
-	if (slotid == -1) {
+	slot = Protection_GetWeaponSlot(weaponid);
+	if (slot == -1) {
 		return 0;
 	}
 
-	gPlayerWeapons[playerid][slotid][e_wID] = weaponid;
-	gPlayerWeapons[playerid][slotid][e_wBullets] += ammo;
+	gPlayerWeapons[playerid][slot][e_wID] = weaponid;
+	gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
 
 	return GivePlayerWeapon(playerid, weaponid, ammo);
 }
@@ -116,6 +115,53 @@ stock Protection_GivePlayerWeapon(playerid, weaponid, ammo)
 #define GivePlayerWeapon Protection_GivePlayerWeapon
 
 /*
+	ResetPlayerWeapons
+*/
+
+stock Protection_ResetPlayerWeapons(playerid)
+{
+	for (new slot = 0; i < PROTECTION_MAX_WEAPON_SLOTS; i++) {
+		gPlayerWeapons[playerid][slot][e_wID] = 0;
+		gPlayerWeapons[playerid][slot][e_wBullets] = 0;
+	}
+
+	return ResetPlayerWeapons(playerid);
+}
+#if defined _ALS_ResetPlayerWeapons
+	#undef ResetPlayerWeapons
+#else
+	#define _ALS_ResetPlayerWeapons
+#endif
+ 
+#define ResetPlayerWeapons Protection_ResetPlayerWeapons
+
+/*
+	SetPlayerAmmo
+*/
+
+stock Protection_SetPlayerAmmo(playerid, weaponid, ammo)
+{
+	static
+		slot;
+	
+	slot = Protection_GetWeaponSlot(weaponid)
+	if (slot == -1) {
+		return 0;
+	}
+
+	gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+
+	return SetPlayerAmmo(playerid, weaponid, ammo);
+}
+#if defined _ALS_SetPlayerAmmo
+	#undef SetPlayerAmmo
+#else
+	#define _ALS_SetPlayerAmmo
+#endif
+ 
+#define SetPlayerAmmo Protection_SetPlayerAmmo
+
+/*
 	Call function
 */
 
@@ -125,7 +171,7 @@ public Protection_Weapon(playerid)
 	static
 		weaponid,
 		bullets,
-		slotid;
+		slot;
 
 	if (weaponid == 0) {
 		return 0;
@@ -133,24 +179,24 @@ public Protection_Weapon(playerid)
 
 	weaponid = GetPlayerWeapon(playerid);
 	bullets = GetPlayerAmmo(playerid);
-	slotid = Protection_GetWeaponSlot(weaponid);
+	slot = Protection_GetWeaponSlot(weaponid);
 
 	// weapon
-	if (gPlayerWeapons[playerid][slotid][e_wID] != weaponid) {
+	if (gPlayerWeapons[playerid][slot][e_wID] != weaponid) {
 		// set right ammo
-		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slotid][e_wID], 0);
+		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_wID], 0);
 
 		// report
-		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slotid][e_wID], weaponid);
+		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slot][e_wID], weaponid);
 	}
 	
 	// bullets
-	if (gPlayerWeapons[playerid][slotid][e_wBullets] < bullets) {
+	if (gPlayerWeapons[playerid][slot][e_wBullets] < bullets) {
 		// set right bullets
-		SetPlayerAmmo(playerid, gPlayerWeapons[playerid][slotid][e_wID], gPlayerWeapons[playerid][slotid][e_wBullets]);
+		SetPlayerAmmo(playerid, gPlayerWeapons[playerid][slot][e_wID], gPlayerWeapons[playerid][slot][e_wBullets]);
 
 		// report
-		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slotid][e_wBullets], bullets);
+		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_wBullets], bullets);
 	}
 
 	return 0;
