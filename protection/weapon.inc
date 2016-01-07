@@ -173,13 +173,13 @@ public Protection_Weapon(playerid)
 		bullets,
 		slot;
 
-	if (weaponid == 0) {
-		return 0;
-	}
-
 	weaponid = GetPlayerWeapon(playerid);
 	bullets = GetPlayerAmmo(playerid);
 	slot = Protection_GetWeaponSlot(weaponid);
+
+	if (weaponid == 0) {
+		return 0;
+	}
 
 	// weapon
 	if (gPlayerWeapons[playerid][slot][e_wID] != weaponid) {
