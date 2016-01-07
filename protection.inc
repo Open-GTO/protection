@@ -157,6 +157,7 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_HEALTH, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_NAME, "Health");
 	Protection_SetParamString(PROTECTION_HEALTH, PROTECTION_FUNCTION, "Protection_Health");
+	Protection_SetParamInt(PROTECTION_HEALTH, PROTECTION_SPAWN_DELAY, 2000);
 
 	// armour
 	Protection_SetParamInt(PROTECTION_ARMOUR, PROTECTION_ENABLED, 1);
