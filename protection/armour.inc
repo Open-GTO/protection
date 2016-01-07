@@ -56,7 +56,7 @@ public Protection_Armour(playerid)
 	SetPlayerArmour
 */
 
-stock Protection_SetPlayerArmour(playerid, Float:armour)
+stock PArmour_SetPlayerArmour(playerid, Float:armour)
 {
 	gPlayerArmour[playerid] = armour;
 	return SetPlayerArmour(playerid, armour);
@@ -67,4 +67,21 @@ stock Protection_SetPlayerArmour(playerid, Float:armour)
 	#define _ALS_SetPlayerArmour
 #endif
  
-#define SetPlayerArmour Protection_SetPlayerArmour
+#define SetPlayerArmour PArmour_SetPlayerArmour
+
+/*
+	GetPlayerArmour
+*/
+
+stock PArmour_GetPlayerArmour(playerid, &Float:armour)
+{
+	armour = gPlayerArmour[playerid];
+	return 1;
+}
+#if defined _ALS_GetPlayerArmour
+	#undef GetPlayerArmour
+#else
+	#define _ALS_GetPlayerArmour
+#endif
+ 
+#define GetPlayerArmour PArmour_GetPlayerArmour

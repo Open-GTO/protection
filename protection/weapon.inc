@@ -91,7 +91,7 @@ static
 	GivePlayerWeapon
 */
 
-stock Protection_GivePlayerWeapon(playerid, weaponid, ammo)
+stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 {
 	static
 		slot;
@@ -112,13 +112,13 @@ stock Protection_GivePlayerWeapon(playerid, weaponid, ammo)
 	#define _ALS_GivePlayerWeapon
 #endif
  
-#define GivePlayerWeapon Protection_GivePlayerWeapon
+#define GivePlayerWeapon PWeapon_GivePlayerWeapon
 
 /*
 	ResetPlayerWeapons
 */
 
-stock Protection_ResetPlayerWeapons(playerid)
+stock PWeapon_ResetPlayerWeapons(playerid)
 {
 	for (new slot = 0; i < PROTECTION_MAX_WEAPON_SLOTS; i++) {
 		gPlayerWeapons[playerid][slot][e_wID] = 0;
@@ -133,13 +133,13 @@ stock Protection_ResetPlayerWeapons(playerid)
 	#define _ALS_ResetPlayerWeapons
 #endif
  
-#define ResetPlayerWeapons Protection_ResetPlayerWeapons
+#define ResetPlayerWeapons PWeapon_ResetPlayerWeapons
 
 /*
 	SetPlayerAmmo
 */
 
-stock Protection_SetPlayerAmmo(playerid, weaponid, ammo)
+stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 {
 	static
 		slot;
@@ -159,7 +159,7 @@ stock Protection_SetPlayerAmmo(playerid, weaponid, ammo)
 	#define _ALS_SetPlayerAmmo
 #endif
  
-#define SetPlayerAmmo Protection_SetPlayerAmmo
+#define SetPlayerAmmo PWeapon_SetPlayerAmmo
 
 /*
 	Call function
@@ -223,8 +223,8 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		}
 	}
 
-	#if defined Protection_OnPlayerExitVehlicle
-		return Protection_OnPlayerExitVehlicle(playerid, vehicleid);
+	#if defined PWeapon_OnPlayerExitVehlicle
+		return PWeapon_OnPlayerExitVehlicle(playerid, vehicleid);
 	#else
 		return 1;
 	#endif
@@ -235,9 +235,9 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	#define _ALS_OnPlayerExitVehlicle
 #endif
  
-#define OnPlayerExitVehlicle Protection_OnPlayerExitVehlicle
-#if defined Protection_OnPlayerExitVehlicle
-	forward Protection_OnPlayerExitVehlicle(playerid, vehicleid);
+#define OnPlayerExitVehlicle PWeapon_OnPlayerExitVehlicle
+#if defined PWeapon_OnPlayerExitVehlicle
+	forward PWeapon_OnPlayerExitVehlicle(playerid, vehicleid);
 #endif
 
 /*

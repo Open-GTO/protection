@@ -57,7 +57,7 @@ public Protection_Money(playerid)
 	GivePlayerMoney
 */
 
-stock Protection_GivePlayerMoney(playerid, Float:money)
+stock PMoney_GivePlayerMoney(playerid, Float:money)
 {
 	gPlayerMoney[playerid] += money;
 	return GivePlayerMoney(playerid, money);
@@ -68,13 +68,13 @@ stock Protection_GivePlayerMoney(playerid, Float:money)
 	#define _ALS_GivePlayerMoney
 #endif
  
-#define GivePlayerMoney Protection_GivePlayerMoney
+#define GivePlayerMoney PMoney_GivePlayerMoney
 
 /*
 	ResetPlayerMoney
 */
 
-stock Protection_ResetPlayerMoney(playerid)
+stock PMoney_ResetPlayerMoney(playerid)
 {
 	gPlayerMoney[playerid] = 0;
 }
@@ -84,13 +84,13 @@ stock Protection_ResetPlayerMoney(playerid)
 	#define _ALS_ResetPlayerMoney
 #endif
  
-#define ResetPlayerMoney Protection_ResetPlayerMoney
+#define ResetPlayerMoney PMoney_ResetPlayerMoney
 
 /*
 	GetPlayerMoney
 */
 
-stock Protection_GetPlayerMoney(playerid)
+stock PMoney_GetPlayerMoney(playerid)
 {
 	return gPlayerMoney[playerid];
 }
@@ -100,4 +100,4 @@ stock Protection_GetPlayerMoney(playerid)
 	#define _ALS_GetPlayerMoney
 #endif
  
-#define GetPlayerMoney Protection_GetPlayerMoney
+#define GetPlayerMoney PMoney_GetPlayerMoney

@@ -94,8 +94,8 @@ public OnPlayerSpawn(playerid)
 	gOldPos[playerid][1] = si_y;
 	gOldPos[playerid][2] = si_z;
 
-	#if defined Protection_OnPlayerSpawn
-		return Protection_OnPlayerSpawn(playerid);
+	#if defined PTeleport_OnPlayerSpawn
+		return PTeleport_OnPlayerSpawn(playerid);
 	#else
 		return 1;
 	#endif
@@ -106,16 +106,16 @@ public OnPlayerSpawn(playerid)
 	#define _ALS_OnPlayerSpawn
 #endif
  
-#define OnPlayerSpawn Protection_OnPlayerSpawn
-#if defined Protection_OnPlayerSpawn
-	forward Protection_OnPlayerSpawn(playerid);
+#define OnPlayerSpawn PTeleport_OnPlayerSpawn
+#if defined PTeleport_OnPlayerSpawn
+	forward PTeleport_OnPlayerSpawn(playerid);
 #endif
 
 /*
 	SetPlayerPos
 */
 
-stock pt_tp_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
+stock PTeleport_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
 {
 	GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
 
@@ -131,14 +131,14 @@ stock pt_tp_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
 	#define _ALS_SetPlayerPos
 #endif
  
-#define SetPlayerPos pt_tp_SetPlayerPos
+#define SetPlayerPos PTeleport_SetPlayerPos
 
 
 /*
 	SetVehiclePos
 */
 
-stock pt_tp_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
+stock PTeleport_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 {
 	static
 		Float:prev_x,
@@ -167,4 +167,4 @@ stock pt_tp_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 	#define _ALS_SetVehiclePos
 #endif
  
-#define SetVehiclePos pt_tp_SetVehiclePos
+#define SetVehiclePos PTeleport_SetVehiclePos

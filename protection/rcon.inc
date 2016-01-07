@@ -36,8 +36,8 @@ public OnRconLoginAttempt(ip[], password[], success)
 		}
 	}
 
-	#if defined Protection_OnRconLoginAttempt
-		return Protection_OnRconLoginAttempt(ip, password, success);
+	#if defined PRcon_OnRconLoginAttempt
+		return PRcon_OnRconLoginAttempt(ip, password, success);
 	#else
 		return 1;
 	#endif
@@ -48,7 +48,7 @@ public OnRconLoginAttempt(ip[], password[], success)
 	#define _ALS_OnRconLoginAttempt
 #endif
  
-#define OnRconLoginAttempt Protection_OnRconLoginAttempt
-#if defined Protection_OnRconLoginAttempt
-	forward Protection_OnRconLoginAttempt(ip[], password[], success);
+#define OnRconLoginAttempt PRcon_OnRconLoginAttempt
+#if defined PRcon_OnRconLoginAttempt
+	forward PRcon_OnRconLoginAttempt(ip[], password[], success);
 #endif

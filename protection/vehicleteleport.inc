@@ -42,8 +42,8 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 		return 0;
 	}
 
-	#if defined Protection_OnUnoccupiedVehicleU
-		return Protection_OnUnoccupiedVehicleU(vehicleid, playerid, passenger_seat, new_x, new_y, new_z, vel_x, vel_y, vel_z);
+	#if defined PVeTP_OnUnoccupiedVehicleUpdate
+		return PVeTP_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, new_x, new_y, new_z, vel_x, vel_y, vel_z);
 	#else
 		return 1;
 	#endif
@@ -54,7 +54,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 	#define _ALS_OnUnoccupiedVehicleUpdate
 #endif
  
-#define OnUnoccupiedVehicleUpdate Protection_OnUnoccupiedVehicleU
-#if defined Protection_OnUnoccupiedVehicleU
-	forward Protection_OnUnoccupiedVehicleU(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
+#define OnUnoccupiedVehicleUpdate PVeTP_OnUnoccupiedVehicleUpdate
+#if defined PVeTP_OnUnoccupiedVehicleUpdate
+	forward PVeTP_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
 #endif

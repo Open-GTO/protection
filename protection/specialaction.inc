@@ -61,7 +61,7 @@ public Protection_SpecialAction(playerid)
 	SetPlayerSpecialAction
 */
 
-stock Protection_SetPlayerSpeAction(playerid, actionid)
+stock PSpecAct_SetPlayerSpecialAction(playerid, actionid)
 {
 	gPlayerSpecialAction{playerid} = actionid;
 	return SetPlayerSpecialAction(playerid, actionid);
@@ -72,4 +72,21 @@ stock Protection_SetPlayerSpeAction(playerid, actionid)
 	#define _ALS_SetPlayerSpecialAction
 #endif
  
-#define SetPlayerSpecialAction Protection_SetPlayerSpeAction
+#define SetPlayerSpecialAction PSpecAct_SetPlayerSpecialAction
+
+
+/*
+	GetPlayerSpecialAction
+*/
+
+stock PSpecAct_GetPlayerSpecialAction(playerid)
+{
+	return gPlayerSpecialAction{playerid};
+}
+#if defined _ALS_GetPlayerSpecialAction
+	#undef GetPlayerSpecialAction
+#else
+	#define _ALS_GetPlayerSpecialAction
+#endif
+ 
+#define GetPlayerSpecialAction PSpecAct_GetPlayerSpecialAction

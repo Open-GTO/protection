@@ -81,7 +81,7 @@ public OnPlayerSpawn(playerid)
 	SetPlayerHealth
 */
 
-stock Protection_SetPlayerHealth(playerid, Float:health)
+stock PHealth_SetPlayerHealth(playerid, Float:health)
 {
 	gPlayerHealth[playerid] = health;
 	return SetPlayerHealth(playerid, health);
@@ -92,4 +92,21 @@ stock Protection_SetPlayerHealth(playerid, Float:health)
 	#define _ALS_SetPlayerHealth
 #endif
  
-#define SetPlayerHealth Protection_SetPlayerHealth
+#define SetPlayerHealth PHealth_SetPlayerHealth
+
+/*
+	GetPlayerHealth
+*/
+
+stock PHealth_GetPlayerHealth(playerid, &Float:health)
+{
+	health = gPlayerHealth[playerid];
+	return 1;
+}
+#if defined _ALS_GetPlayerHealth
+	#undef GetPlayerHealth
+#else
+	#define _ALS_GetPlayerHealth
+#endif
+ 
+#define GetPlayerHealth PHealth_GetPlayerHealth

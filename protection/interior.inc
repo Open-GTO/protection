@@ -53,16 +53,16 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 	#define _ALS_OnPlayerInteriorChange
 #endif
  
-#define OnPlayerInteriorChange Interior_OnPlayerInteriorChange
-#if defined Interior_OnPlayerInteriorChange
-	forward Interior_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
+#define OnPlayerInteriorChange PInterio_OnPlayerInteriorChange
+#if defined PInterio_OnPlayerInteriorChange
+	forward PInterio_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
 #endif
 
 /*
 	SetPlayerInterior
 */
 
-stock Interior_SetPlayerInterior(playerid, interior)
+stock PInterior_SetPlayerInterior(playerid, interior)
 {
 	gPlayerInterior{playerid} = interior;
 	return SetPlayerInterior(playerid, interior);
@@ -73,13 +73,13 @@ stock Interior_SetPlayerInterior(playerid, interior)
 	#define _ALS_SetPlayerInterior
 #endif
  
-#define SetPlayerInterior Interior_SetPlayerInterior
+#define SetPlayerInterior PInterior_SetPlayerInterior
 
 /*
 	DisableInteriorEnterExits
 */
 
-stock Interior_DisableInteriorEE()
+stock PInterior_DisableInteriorEE()
 {
 	Protection_SetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED, 1);
 	return DisableInteriorEnterExits();
@@ -90,4 +90,4 @@ stock Interior_DisableInteriorEE()
 	#define _ALS_DisableInteriorEnterExits
 #endif
  
-#define DisableInteriorEnterExits Interior_DisableInteriorEE
+#define DisableInteriorEnterExits PInterior_DisableInteriorEE
