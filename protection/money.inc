@@ -71,12 +71,28 @@ stock Protection_GivePlayerMoney(playerid, Float:money)
 #define GivePlayerMoney Protection_GivePlayerMoney
 
 /*
+	ResetPlayerMoney
+*/
+
+stock Protection_ResetPlayerMoney(playerid)
+{
+	gPlayerMoney[playerid] = 0;
+}
+#if defined _ALS_ResetPlayerMoney
+	#undef ResetPlayerMoney
+#else
+	#define _ALS_ResetPlayerMoney
+#endif
+ 
+#define ResetPlayerMoney Protection_ResetPlayerMoney
+
+/*
 	GetPlayerMoney
 */
 
 stock Protection_GetPlayerMoney(playerid)
 {
-	return gPlayerMoney[playerid]
+	return gPlayerMoney[playerid];
 }
 #if defined _ALS_GetPlayerMoney
 	#undef GetPlayerMoney
