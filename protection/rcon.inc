@@ -22,7 +22,9 @@
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	if (!success && Protection_GetParamInt(PROTECTION_RCON, PROTECTION_ENABLED)) {
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_RCON, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled && !success && Protection_GetParamInt(PROTECTION_RCON, PROTECTION_ENABLED)) {
 		new
 			player_ip[PROTECTION_MAX_IP + 1];
 

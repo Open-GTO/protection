@@ -79,20 +79,24 @@ public Protection_Teleport(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	static
-		Float:si_x,
-		Float:si_y,
-		Float:si_z;
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
 
-	GetSpawnInfo(playerid, _, _, si_x, si_y, si_z, _, _, _, _, _, _, _);
-	
-	gPrevPos[playerid][0] = si_x;
-	gPrevPos[playerid][1] = si_y;
-	gPrevPos[playerid][2] = si_z;
+	if (is_enabled) {
+		static
+			Float:si_x,
+			Float:si_y,
+			Float:si_z;
 
-	gOldPos[playerid][0] = si_x;
-	gOldPos[playerid][1] = si_y;
-	gOldPos[playerid][2] = si_z;
+		GetSpawnInfo(playerid, _, _, si_x, si_y, si_z, _, _, _, _, _, _, _);
+		
+		gPrevPos[playerid][0] = si_x;
+		gPrevPos[playerid][1] = si_y;
+		gPrevPos[playerid][2] = si_z;
+
+		gOldPos[playerid][0] = si_x;
+		gOldPos[playerid][1] = si_y;
+		gOldPos[playerid][2] = si_z;
+	}
 
 	#if defined PTeleport_OnPlayerSpawn
 		return PTeleport_OnPlayerSpawn(playerid);
@@ -117,11 +121,15 @@ public OnPlayerSpawn(playerid)
 
 stock PTeleport_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
 {
-	GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
 
-	gOldPos[playerid][0] = x;
-	gOldPos[playerid][1] = y;
-	gOldPos[playerid][2] = z;
+	if (is_enabled) {
+		GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
+
+		gOldPos[playerid][0] = x;
+		gOldPos[playerid][1] = y;
+		gOldPos[playerid][2] = z;
+	}
 
 	return SetPlayerPos(playerid, x, y, z);
 }
@@ -140,22 +148,26 @@ stock PTeleport_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
 
 stock PTeleport_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 {
-	static
-		Float:prev_x,
-		Float:prev_y,
-		Float:prev_z;
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
 
-	GetVehiclePos(vehicleid, prev_x, prev_y, prev_z);
+	if (is_enabled) {
+		static
+			Float:prev_x,
+			Float:prev_y,
+			Float:prev_z;
 
-	foreach (new playerid : Player) {
-		if (GetPlayerVehicleID(playerid) == vehicleid) {
-			gPrevPos[playerid][0] = prev_x;
-			gPrevPos[playerid][1] = prev_y;
-			gPrevPos[playerid][2] = prev_z;
+		GetVehiclePos(vehicleid, prev_x, prev_y, prev_z);
 
-			gOldPos[playerid][0] = x;
-			gOldPos[playerid][1] = y;
-			gOldPos[playerid][2] = z;
+		foreach (new playerid : Player) {
+			if (GetPlayerVehicleID(playerid) == vehicleid) {
+				gPrevPos[playerid][0] = prev_x;
+				gPrevPos[playerid][1] = prev_y;
+				gPrevPos[playerid][2] = prev_z;
+
+				gOldPos[playerid][0] = x;
+				gOldPos[playerid][1] = y;
+				gOldPos[playerid][2] = z;
+			}
 		}
 	}
 

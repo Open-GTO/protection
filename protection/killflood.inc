@@ -18,7 +18,9 @@
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	if (playerid == killerid) {
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled && playerid == killerid) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d", reason);
 		return 0;
 	}

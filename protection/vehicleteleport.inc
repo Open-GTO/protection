@@ -22,24 +22,28 @@
 
 public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
 {
-	static
-		Float:distance,
-		Float:max_distance,
-		Float:pos_x,
-		Float:pos_y,
-		Float:pos_z;
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_ENABLED) != 0;
 
-	GetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
-	distance = VectorSize(pos_x - new_x, pos_y - new_y, pos_z - new_z);
-	max_distance = Protection_GetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE);
+	if (is_enabled) {
+		static
+			Float:distance,
+			Float:max_distance,
+			Float:pos_x,
+			Float:pos_y,
+			Float:pos_z;
 
-	if (distance > max_distance) {
-		// set right pos
-		SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+		GetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+		distance = VectorSize(pos_x - new_x, pos_y - new_y, pos_z - new_z);
+		max_distance = Protection_GetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE);
 
-		// report
-		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETELEPORT, "%.2f > %.2f", distance, max_distance);
-		return 0;
+		if (distance > max_distance) {
+			// set right pos
+			SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+
+			// report
+			Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETELEPORT, "%.2f > %.2f", distance, max_distance);
+			return 0;
+		}
 	}
 
 	#if defined PVeTP_OnUnoccupiedVehicleUpdate

@@ -93,16 +93,20 @@ static
 
 stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 {
-	static
-		slot;
-	
-	slot = Protection_GetWeaponSlot(weaponid);
-	if (slot == -1) {
-		return 0;
-	}
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
 
-	gPlayerWeapons[playerid][slot][e_wID] = weaponid;
-	gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
+	if (is_enabled) {
+		static
+			slot;
+		
+		slot = Protection_GetWeaponSlot(weaponid);
+		if (slot == -1) {
+			return 0;
+		}
+
+		gPlayerWeapons[playerid][slot][e_wID] = weaponid;
+		gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
+	}
 
 	return GivePlayerWeapon(playerid, weaponid, ammo);
 }
@@ -120,9 +124,13 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 
 stock PWeapon_ResetPlayerWeapons(playerid)
 {
-	for (new slot = 0; i < PROTECTION_MAX_WEAPON_SLOTS; i++) {
-		gPlayerWeapons[playerid][slot][e_wID] = 0;
-		gPlayerWeapons[playerid][slot][e_wBullets] = 0;
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled) {
+		for (new slot = 0; i < PROTECTION_MAX_WEAPON_SLOTS; i++) {
+			gPlayerWeapons[playerid][slot][e_wID] = 0;
+			gPlayerWeapons[playerid][slot][e_wBullets] = 0;
+		}
 	}
 
 	return ResetPlayerWeapons(playerid);
@@ -141,15 +149,19 @@ stock PWeapon_ResetPlayerWeapons(playerid)
 
 stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 {
-	static
-		slot;
-	
-	slot = Protection_GetWeaponSlot(weaponid);
-	if (slot == -1) {
-		return 0;
-	}
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
 
-	gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+	if (is_enabled) {
+		static
+			slot;
+		
+		slot = Protection_GetWeaponSlot(weaponid);
+		if (slot == -1) {
+			return 0;
+		}
+
+		gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+	}
 
 	return SetPlayerAmmo(playerid, weaponid, ammo);
 }
@@ -208,17 +220,21 @@ public Protection_Weapon(playerid)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	static
-		Float:pos_x,
-		Float:pos_y,
-		Float:pos_z;
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
 
-	GetPlayerPos(playerid, pos_x, pos_y, pos_z);
+	if (is_enabled) {
+		static
+			Float:pos_x,
+			Float:pos_y,
+			Float:pos_z;
 
-	if (pos_z >= 55.0) {
-		switch ( GetVehicleModel(vehicleid) ) {
-			case 592,577,511,512,520,593,553,476,519,460,513,548,425,417,487,488,497,563,447,469: {
-				GivePlayerWeapon(playerid, WEAPON_PARACHUTE, 1);
+		GetPlayerPos(playerid, pos_x, pos_y, pos_z);
+
+		if (pos_z >= 55.0) {
+			switch ( GetVehicleModel(vehicleid) ) {
+				case 592,577,511,512,520,593,553,476,519,460,513,548,425,417,487,488,497,563,447,469: {
+					GivePlayerWeapon(playerid, WEAPON_PARACHUTE, 1);
+				}
 			}
 		}
 	}

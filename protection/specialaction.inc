@@ -81,7 +81,13 @@ stock PSpecAct_SetPlayerSpecialAction(playerid, actionid)
 
 stock PSpecAct_GetPlayerSpecialAction(playerid)
 {
-	return gPlayerSpecialAction{playerid};
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_SPECIALACTION, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled) {
+		return gPlayerSpecialAction{playerid};
+	}
+
+	return GetPlayerSpecialAction(playerid);
 }
 #if defined _ALS_GetPlayerSpecialAction
 	#undef GetPlayerSpecialAction
