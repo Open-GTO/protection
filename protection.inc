@@ -57,6 +57,7 @@ enum Protection {
 	PROTECTION_ARMOUR,
 	PROTECTION_VEHICLETELEPORT,
 	PROTECTION_WEAPON,
+	PROTECTION_MONEY,
 }
 
 enum ProtectionParams {
@@ -99,6 +100,7 @@ enum ProtectionPlayerInfo {
 #include "protection/armour"
 #include "protection/vehicleteleport"
 #include "protection/weapon"
+#include "protection/money"
 
 /*
 	Vars
@@ -168,6 +170,11 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_WEAPON, PROTECTION_NAME, "Weapon");
 	Protection_SetParamString(PROTECTION_WEAPON, PROTECTION_FUNCTION, "Protection_Weapon");
+
+	// money
+	Protection_SetParamInt(PROTECTION_MONEY, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_NAME, "Money");
+	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_FUNCTION, "Protection_Money");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
