@@ -182,7 +182,7 @@ public OnGameModeInit()
 
 	// money
 	Protection_SetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED, 1);
-	Protection_SetParamString(PROTECTION_KILLFLOOD, PROTECTION_NAME, "Killflood");
+	Protection_SetParamString(PROTECTION_KILLFLOOD, PROTECTION_NAME, "Kill Flood");
 
 	// money
 	Protection_SetParamInt(PROTECTION_WEAPONDAMAGE, PROTECTION_ENABLED, 1);
