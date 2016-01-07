@@ -59,6 +59,7 @@ enum Protection {
 	PROTECTION_WEAPON,
 	PROTECTION_MONEY,
 	PROTECTION_KILLFLOOD,
+	PROTECTION_WEAPONDAMAGE,
 }
 
 enum ProtectionParams {
@@ -182,6 +183,10 @@ public OnGameModeInit()
 	// money
 	Protection_SetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_KILLFLOOD, PROTECTION_NAME, "Killflood");
+
+	// money
+	Protection_SetParamInt(PROTECTION_WEAPONDAMAGE, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_WEAPONDAMAGE, PROTECTION_NAME, "Weapon Damage");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
