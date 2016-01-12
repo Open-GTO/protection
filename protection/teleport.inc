@@ -141,6 +141,32 @@ stock PTeleport_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
  
 #define SetPlayerPos PTeleport_SetPlayerPos
 
+/*
+	SetPlayerPosFindZ
+*/
+
+stock PTeleport_SetPlayerPosFindZ(playerid, Float:x, Float:y, Float:z)
+{
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled) {
+		GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
+
+		gOldPos[playerid][0] = x;
+		gOldPos[playerid][1] = y;
+		gOldPos[playerid][2] = z;
+	}
+
+	return SetPlayerPosFindZ(playerid, x, y, z);
+}
+#if defined _ALS_SetPlayerPosFindZ
+	#undef SetPlayerPosFindZ
+#else
+	#define _ALS_SetPlayerPosFindZ
+#endif
+ 
+#define SetPlayerPosFindZ PTeleport_SetPlayerPosFindZ
+
 
 /*
 	SetVehiclePos
