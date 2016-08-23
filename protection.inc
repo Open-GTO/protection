@@ -60,6 +60,7 @@ enum Protection {
 	PROTECTION_KILLFLOOD,
 	PROTECTION_WEAPONDAMAGE,
 	PROTECTION_RAPIDFIRE,
+	PROTECTION_BADSHOT,
 }
 
 enum ProtectionParams {
@@ -103,6 +104,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/money"
 #include "protection/protection/killflood"
 #include "protection/protection/rapidfire"
+#include "protection/protection/badshot"
 
 /*
 	Vars
@@ -190,6 +192,10 @@ public OnGameModeInit()
 	// rapidfire
 	Protection_SetParamInt(PROTECTION_RAPIDFIRE, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_RAPIDFIRE, PROTECTION_NAME, "Rapid Fire");
+
+	// badshot
+	Protection_SetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_BADSHOT, PROTECTION_NAME, "Bad Shot");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
