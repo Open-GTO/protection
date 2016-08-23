@@ -310,7 +310,7 @@ public Protection_Timer()
 			current_prot = Protection:i;
 
 			// spawn delay
-			if (current_tick - spawn_tick < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
+			if (_Protection_GetTickDiff(current_tick, spawn_tick) < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
 				continue;
 			}
 
@@ -574,4 +574,18 @@ stock Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value
 stock Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value))
 {
 	strmid(value, gPlayerInfo[playerid][param], 0, strlen(gPlayerInfo[playerid][param]), size);
+}
+
+/*
+	Safe tick different
+*/
+
+static stock _Protection_GetTickDiff(newtick, oldtick)
+{
+	if (oldtick < 0 && newtick >= 0) {
+		return newtick - oldtick;
+	} else if (oldtick >= 0 && newtick < 0 || oldtick > newtick) {
+		return (cellmax - oldtick + 1) - (cellmin - newtick);
+	}
+	return newtick - oldtick;
 }
