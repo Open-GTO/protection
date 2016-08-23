@@ -87,13 +87,13 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 		current_tick = GetTickCount();
 		shot_time = Protection_GetTickDiff(current_tick, gPlayerLastTick[playerid]);
+		gPlayerLastTick[playerid] = current_tick;
 		max_shot_time = Protection_GetWeaponShotTime(weaponid);
 
 		if (shot_time < max_shot_time) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_RAPIDFIRE, "%d < %d", shot_time, max_shot_time);
+			return 0;
 		}
-
-		gPlayerLastTick[playerid] = current_tick;
 	}
 
 	#if defined PRapidfire_OnPlayerWeaponShot
