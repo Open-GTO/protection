@@ -172,6 +172,53 @@ stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 
 #define SetPlayerAmmo PWeapon_SetPlayerAmmo
 
+
+/*
+	OnPlayerSpawn
+*/
+
+public OnPlayerSpawn(playerid)
+{
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled) {
+		static
+			slot,
+			weapons[3][e_Weapon_Info];
+
+		GetSpawnInfo(playerid, _, _, _, _, _, _,
+		             weapons[0][e_wID], weapons[0][e_wBullets],
+		             weapons[1][e_wID], weapons[1][e_wBullets],
+		             weapons[2][e_wID], weapons[2][e_wBullets]);
+
+		for (new i = 0; i < sizeof(weapons); i++) {
+			slot = Protection_GetWeaponSlot(weapons[i][e_wID]);
+			if (slot == -1) {
+				continue;
+			}
+
+			gPlayerWeapons[playerid][slot][e_wID] = weapons[i][e_wID];
+			gPlayerWeapons[playerid][slot][e_wBullets] = weapons[i][e_wBullets];
+		}
+	}
+
+	#if defined PWeapon_OnPlayerSpawn
+		return PWeapon_OnPlayerSpawn(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+
+#define OnPlayerSpawn PWeapon_OnPlayerSpawn
+#if defined PWeapon_OnPlayerSpawn
+	forward PWeapon_OnPlayerSpawn(playerid);
+#endif
+
 /*
 	Call function
 */
@@ -194,7 +241,7 @@ public Protection_Weapon(playerid)
 
 	// weapon
 	if (gPlayerWeapons[playerid][slot][e_wID] != weaponid) {
-		// set right ammo
+		// set right weapon
 		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_wID], 0);
 
 		// report
@@ -259,7 +306,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	Protection_GetWeaponSlot
 */
 
-static stock Protection_GetWeaponSlot(weaponid)
+stock Protection_GetWeaponSlot(weaponid)
 {
 	if (weaponid < 0 || weaponid > sizeof(gWeaponSlots)) {
 		return -1;
