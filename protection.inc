@@ -59,6 +59,7 @@ enum Protection {
 	PROTECTION_MONEY,
 	PROTECTION_KILLFLOOD,
 	PROTECTION_WEAPONDAMAGE,
+	PROTECTION_RAPIDFIRE,
 }
 
 enum ProtectionParams {
@@ -101,6 +102,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/weapon"
 #include "protection/protection/money"
 #include "protection/protection/killflood"
+#include "protection/protection/rapidfire"
 
 /*
 	Vars
@@ -177,13 +179,17 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_NAME, "Money");
 	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_FUNCTION, "Protection_Money");
 
-	// money
+	// killflood
 	Protection_SetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_KILLFLOOD, PROTECTION_NAME, "Kill Flood");
 
-	// money
+	// weapondamage
 	Protection_SetParamInt(PROTECTION_WEAPONDAMAGE, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_WEAPONDAMAGE, PROTECTION_NAME, "Weapon Damage");
+
+	// rapidfire
+	Protection_SetParamInt(PROTECTION_RAPIDFIRE, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_RAPIDFIRE, PROTECTION_NAME, "Rapid Fire");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
@@ -262,6 +268,16 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		}
 	}
 
+	// fix after killflood cheat
+	if (oldstate == PLAYER_STATE_WASTED) {
+		switch (newstate) {
+			case PLAYER_STATE_ONFOOT, PLAYER_STATE_DRIVER, PLAYER_STATE_PASSENGER: {
+				Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED, 1);
+				Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWN_TICK, GetTickCount());
+			}
+		}
+	}
+
 	#if defined Protection_OnPlayerStateChange
 		return Protection_OnPlayerStateChange(playerid, newstate, oldstate);
 	#else
@@ -310,7 +326,7 @@ public Protection_Timer()
 			current_prot = Protection:i;
 
 			// spawn delay
-			if (_Protection_GetTickDiff(current_tick, spawn_tick) < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
+			if (Protection_GetTickDiff(current_tick, spawn_tick) < player_ping + Protection_GetParamInt(current_prot, PROTECTION_SPAWN_DELAY)) {
 				continue;
 			}
 
@@ -334,7 +350,7 @@ public Protection_Timer()
 			// delay check
 			last_tick = Protection_GetParamInt(current_prot, PROTECTION_LAST_TICKCOUNT);
 
-			if (current_tick - last_tick < player_ping + Protection_GetParamInt(current_prot, PROTECTION_CHECK_DELAY)) {
+			if (Protection_GetTickDiff(current_tick, last_tick) < player_ping + Protection_GetParamInt(current_prot, PROTECTION_CHECK_DELAY)) {
 				continue;
 			}
 
@@ -580,7 +596,7 @@ stock Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value
 	Safe tick different
 */
 
-static stock _Protection_GetTickDiff(newtick, oldtick)
+stock Protection_GetTickDiff(newtick, oldtick)
 {
 	if (oldtick < 0 && newtick >= 0) {
 		return newtick - oldtick;

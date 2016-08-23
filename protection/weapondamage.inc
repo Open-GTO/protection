@@ -127,7 +127,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 	Protection_GetWeaponDamage
 */
 
-static stock Protection_GetWeaponDamage(weaponid, &Float:damage)
+stock Protection_GetWeaponDamage(weaponid, &Float:damage)
 {
 	if (weaponid < 0 || weaponid > sizeof(gWeaponDamages)) {
 		return 0;
