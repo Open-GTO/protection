@@ -18,7 +18,6 @@
 #endif
 
 #define _protection_included
-#pragma library protection
 
 /*
 	Defines
@@ -32,7 +31,7 @@
 #define PROTECTION_MAX_IP     14
 
 /*
-	Forward	
+	Forward
 */
 
 forward Protection_Timer();
@@ -91,19 +90,17 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
-#include "lib/getspawninfo/getspawninfo"
-
-#include "protection/teleport"
-#include "protection/interior"
-#include "protection/specialaction"
-#include "protection/rcon"
-#include "protection/ping"
-#include "protection/health"
-#include "protection/armour"
-#include "protection/vehicleteleport"
-#include "protection/weapon"
-#include "protection/money"
-#include "protection/killflood"
+#include "protection/protection/teleport"
+#include "protection/protection/interior"
+#include "protection/protection/specialaction"
+#include "protection/protection/rcon"
+#include "protection/protection/ping"
+#include "protection/protection/health"
+#include "protection/protection/armour"
+#include "protection/protection/vehicleteleport"
+#include "protection/protection/weapon"
+#include "protection/protection/money"
+#include "protection/protection/killflood"
 
 /*
 	Vars
@@ -208,7 +205,7 @@ public OnGameModeInit()
 #else
 	#define _ALS_OnGameModeInit
 #endif
- 
+
 #define OnGameModeInit Protection_OnGameModeInit
 #if defined Protection_OnGameModeInit
 	forward Protection_OnGameModeInit();
@@ -243,7 +240,7 @@ public OnPlayerConnect(playerid)
 #else
 	#define _ALS_OnPlayerConnect
 #endif
- 
+
 #define OnPlayerConnect Protection_OnPlayerConnect
 #if defined Protection_OnPlayerConnect
 	forward Protection_OnPlayerConnect(playerid);
@@ -276,7 +273,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 #else
 	#define _ALS_OnPlayerStateChange
 #endif
- 
+
 #define OnPlayerStateChange Protection_OnPlayerStateChange
 #if defined Protection_OnPlayerStateChange
 	forward Protection_OnPlayerStateChange(playerid, newstate, oldstate);
@@ -303,7 +300,7 @@ public Protection_Timer()
 		Protection_SetPlayerInfoInt(playerid, PROTECTION_PLAYER_PING, player_ping);
 
 		spawn_tick = Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWN_TICK);
-			
+
 		// spawned check
 		if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
 			continue;

@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_health_included
-#pragma library protection_health
 
 /*
 	Vars
@@ -71,7 +70,7 @@ public OnPlayerSpawn(playerid)
 #else
 	#define _ALS_OnPlayerSpawn
 #endif
- 
+
 #define OnPlayerSpawn Protection_Health_OnPlayerSpawn
 #if defined Protection_Health_OnPlayerSpawn
 	forward Protection_Health_OnPlayerSpawn(playerid);
@@ -91,7 +90,7 @@ stock PHealth_SetPlayerHealth(playerid, Float:health)
 #else
 	#define _ALS_SetPlayerHealth
 #endif
- 
+
 #define SetPlayerHealth PHealth_SetPlayerHealth
 
 /*
@@ -108,5 +107,5 @@ stock PHealth_GetPlayerHealth(playerid, &Float:health)
 #else
 	#define _ALS_GetPlayerHealth
 #endif
- 
+
 #define GetPlayerHealth PHealth_GetPlayerHealth

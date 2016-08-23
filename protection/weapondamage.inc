@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_weapondmg_included
-#pragma library protection_weapondamage
 
 /*
 	Vars
@@ -118,7 +117,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 #else
 	#define _ALS_OnPlayerGiveDamage
 #endif
- 
+
 #define OnPlayerGiveDamage PWeapondmg_OnPlayerGiveDamage
 #if defined PWeapondmg_OnPlayerGiveDamage
 	forward PWeapondmg_OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart);

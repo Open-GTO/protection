@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_rcon_included
-#pragma library protection_rcon
 
 /*
 	OnRconLoginAttempt
@@ -49,7 +48,7 @@ public OnRconLoginAttempt(ip[], password[], success)
 #else
 	#define _ALS_OnRconLoginAttempt
 #endif
- 
+
 #define OnRconLoginAttempt PRcon_OnRconLoginAttempt
 #if defined PRcon_OnRconLoginAttempt
 	forward PRcon_OnRconLoginAttempt(ip[], password[], success);

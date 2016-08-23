@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_killflood_included
-#pragma library protection_killflood
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
@@ -36,7 +35,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 #else
 	#define _ALS_OnPlayerDeath
 #endif
- 
+
 #define OnPlayerDeath PKillflood_OnPlayerDeath
 #if defined PKillflood_OnPlayerDeath
 	forward PKillflood_OnPlayerDeath(playerid, killerid, reason);

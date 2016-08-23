@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_ping_included
-#pragma library protection_ping
 
 /*
 	Call function

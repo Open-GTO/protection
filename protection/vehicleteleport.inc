@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_vehicletp_included
-#pragma library protection_vehicletp
 
 /*
 	OnUnoccupiedVehicleU
@@ -57,7 +56,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 #else
 	#define _ALS_OnUnoccupiedVehicleUpdate
 #endif
- 
+
 #define OnUnoccupiedVehicleUpdate PVeTP_OnUnoccupiedVehicleUpdate
 #if defined PVeTP_OnUnoccupiedVehicleUpdate
 	forward PVeTP_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);

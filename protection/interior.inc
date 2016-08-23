@@ -18,7 +18,6 @@
 #endif
 
 #define _protection_interior_included
-#pragma library protection_interior
 
 /*
 	Vars
@@ -35,7 +34,7 @@ static
 public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 {
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED) != 0;
-	
+
 	if (is_enabled && gPlayerInterior{playerid} != newinteriorid) {
 		SetPlayerInterior(playerid, gPlayerInterior{playerid});
 		Protection_GivePlayerWarning(playerid, PROTECTION_INTERIOR, "%d != %d", gPlayerInterior{playerid}, newinteriorid);
@@ -52,7 +51,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 #else
 	#define _ALS_OnPlayerInteriorChange
 #endif
- 
+
 #define OnPlayerInteriorChange PInterio_OnPlayerInteriorChange
 #if defined PInterio_OnPlayerInteriorChange
 	forward PInterio_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
@@ -72,7 +71,7 @@ stock PInterior_SetPlayerInterior(playerid, interior)
 #else
 	#define _ALS_SetPlayerInterior
 #endif
- 
+
 #define SetPlayerInterior PInterior_SetPlayerInterior
 
 /*
@@ -89,5 +88,5 @@ stock PInterior_DisableInteriorEE()
 #else
 	#define _ALS_DisableInteriorEnterExits
 #endif
- 
+
 #define DisableInteriorEnterExits PInterior_DisableInteriorEE

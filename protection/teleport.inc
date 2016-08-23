@@ -18,7 +18,6 @@
 #endif
 
 #define _protection_teleport_included
-#pragma library protection_teleport
 
 /*
 	Vars
@@ -45,7 +44,7 @@ public Protection_Teleport(playerid)
 		Float:max_distance;
 
 	GetPlayerPos(playerid, pos_x, pos_y, pos_z);
-	
+
 	distance_prev = VectorSize(gPrevPos[playerid][0] - pos_x, gPrevPos[playerid][1] - pos_y, 0.0);
 	distance_old = VectorSize(gOldPos[playerid][0] - pos_x, gOldPos[playerid][1] - pos_y, 0.0);
 
@@ -88,7 +87,7 @@ public OnPlayerSpawn(playerid)
 			Float:si_z;
 
 		GetSpawnInfo(playerid, _, _, si_x, si_y, si_z, _, _, _, _, _, _, _);
-		
+
 		gPrevPos[playerid][0] = si_x;
 		gPrevPos[playerid][1] = si_y;
 		gPrevPos[playerid][2] = si_z;
@@ -109,7 +108,7 @@ public OnPlayerSpawn(playerid)
 #else
 	#define _ALS_OnPlayerSpawn
 #endif
- 
+
 #define OnPlayerSpawn PTeleport_OnPlayerSpawn
 #if defined PTeleport_OnPlayerSpawn
 	forward PTeleport_OnPlayerSpawn(playerid);
@@ -138,7 +137,7 @@ stock PTeleport_SetPlayerPos(playerid, Float:x, Float:y, Float:z)
 #else
 	#define _ALS_SetPlayerPos
 #endif
- 
+
 #define SetPlayerPos PTeleport_SetPlayerPos
 
 /*
@@ -164,7 +163,7 @@ stock PTeleport_SetPlayerPosFindZ(playerid, Float:x, Float:y, Float:z)
 #else
 	#define _ALS_SetPlayerPosFindZ
 #endif
- 
+
 #define SetPlayerPosFindZ PTeleport_SetPlayerPosFindZ
 
 
@@ -204,5 +203,5 @@ stock PTeleport_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 #else
 	#define _ALS_SetVehiclePos
 #endif
- 
+
 #define SetVehiclePos PTeleport_SetVehiclePos

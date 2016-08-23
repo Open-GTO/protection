@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_speaction_included
-#pragma library protection_speaction
 
 /*
 	Vars
@@ -71,7 +70,7 @@ stock PSpecAct_SetPlayerSpecialAction(playerid, actionid)
 #else
 	#define _ALS_SetPlayerSpecialAction
 #endif
- 
+
 #define SetPlayerSpecialAction PSpecAct_SetPlayerSpecialAction
 
 
@@ -94,5 +93,5 @@ stock PSpecAct_GetPlayerSpecialAction(playerid)
 #else
 	#define _ALS_GetPlayerSpecialAction
 #endif
- 
+
 #define GetPlayerSpecialAction PSpecAct_GetPlayerSpecialAction

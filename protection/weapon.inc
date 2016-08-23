@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_weapon_included
-#pragma library protection_weapon
 
 /*
 	Defines
@@ -98,7 +97,7 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 	if (is_enabled) {
 		static
 			slot;
-		
+
 		slot = Protection_GetWeaponSlot(weaponid);
 		if (slot == -1) {
 			return 0;
@@ -115,7 +114,7 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 #else
 	#define _ALS_GivePlayerWeapon
 #endif
- 
+
 #define GivePlayerWeapon PWeapon_GivePlayerWeapon
 
 /*
@@ -140,7 +139,7 @@ stock PWeapon_ResetPlayerWeapons(playerid)
 #else
 	#define _ALS_ResetPlayerWeapons
 #endif
- 
+
 #define ResetPlayerWeapons PWeapon_ResetPlayerWeapons
 
 /*
@@ -154,7 +153,7 @@ stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 	if (is_enabled) {
 		static
 			slot;
-		
+
 		slot = Protection_GetWeaponSlot(weaponid);
 		if (slot == -1) {
 			return 0;
@@ -170,7 +169,7 @@ stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 #else
 	#define _ALS_SetPlayerAmmo
 #endif
- 
+
 #define SetPlayerAmmo PWeapon_SetPlayerAmmo
 
 /*
@@ -201,7 +200,7 @@ public Protection_Weapon(playerid)
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slot][e_wID], weaponid);
 	}
-	
+
 	// bullets
 	if (gPlayerWeapons[playerid][slot][e_wBullets] < bullets) {
 		// set right bullets
@@ -250,7 +249,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 #else
 	#define _ALS_OnPlayerExitVehlicle
 #endif
- 
+
 #define OnPlayerExitVehlicle PWeapon_OnPlayerExitVehlicle
 #if defined PWeapon_OnPlayerExitVehlicle
 	forward PWeapon_OnPlayerExitVehlicle(playerid, vehicleid);

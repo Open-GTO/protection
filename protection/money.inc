@@ -14,7 +14,6 @@
 #endif
 
 #define _protection_money_included
-#pragma library protection_money
 
 /*
 	Vars
@@ -67,7 +66,7 @@ stock PMoney_GivePlayerMoney(playerid, Float:money)
 #else
 	#define _ALS_GivePlayerMoney
 #endif
- 
+
 #define GivePlayerMoney PMoney_GivePlayerMoney
 
 /*
@@ -83,7 +82,7 @@ stock PMoney_ResetPlayerMoney(playerid)
 #else
 	#define _ALS_ResetPlayerMoney
 #endif
- 
+
 #define ResetPlayerMoney PMoney_ResetPlayerMoney
 
 /*
@@ -99,5 +98,5 @@ stock PMoney_GetPlayerMoney(playerid)
 #else
 	#define _ALS_GetPlayerMoney
 #endif
- 
+
 #define GetPlayerMoney PMoney_GetPlayerMoney
