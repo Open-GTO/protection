@@ -16,7 +16,7 @@
 #define _protection_vehicletp_included
 
 /*
-	OnUnoccupiedVehicleU
+	OnUnoccupiedVehicleUpdate
 */
 
 public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)

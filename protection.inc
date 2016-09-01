@@ -61,6 +61,7 @@ enum Protection {
 	PROTECTION_WEAPONDAMAGE,
 	PROTECTION_RAPIDFIRE,
 	PROTECTION_BADSHOT,
+	PROTECTION_PICKUPPICK,
 }
 
 enum ProtectionParams {
@@ -105,6 +106,7 @@ enum ProtectionPlayerInfo {
 #include "protection/protection/killflood"
 #include "protection/protection/rapidfire"
 #include "protection/protection/badshot"
+#include "protection/protection/pickuppick"
 
 /*
 	Vars
@@ -196,6 +198,11 @@ public OnGameModeInit()
 	// badshot
 	Protection_SetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_BADSHOT, PROTECTION_NAME, "Bad Shot");
+
+	// pickuppick
+	Protection_SetParamInt(PROTECTION_PICKUPPICK, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_PICKUPPICK, PROTECTION_NAME, "Range Pickup Pick");
+	Protection_SetParamFloat(PROTECTION_PICKUPPICK, PROTECTION_MAX_DISTANCE, 5.0);
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);

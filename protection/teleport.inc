@@ -205,3 +205,21 @@ stock PTeleport_SetVehiclePos(vehicleid, Float:x, Float:y, Float:z)
 #endif
 
 #define SetVehiclePos PTeleport_SetVehiclePos
+
+/*
+	Functions
+*/
+
+stock Protection_GetPlayerPrevPos(playerid, &Float:x, &Float:y, &Float:z)
+{
+	x = gPrevPos[playerid][0];
+	y = gPrevPos[playerid][1];
+	z = gPrevPos[playerid][2];
+}
+
+stock Protection_GetPlayerOldPos(playerid, &Float:x, &Float:y, &Float:z)
+{
+	x = gOldPos[playerid][0];
+	y = gOldPos[playerid][1];
+	z = gOldPos[playerid][2];
+}
