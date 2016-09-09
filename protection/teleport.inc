@@ -41,15 +41,18 @@ public Protection_Teleport(playerid)
 		Float:pos_z,
 		Float:distance_prev,
 		Float:distance_old,
-		Float:max_distance;
+		Float:max_distance,
+		vehicleid;
 
 	GetPlayerPos(playerid, pos_x, pos_y, pos_z);
 
 	distance_prev = VectorSize(gPrevPos[playerid][0] - pos_x, gPrevPos[playerid][1] - pos_y, 0.0);
 	distance_old = VectorSize(gOldPos[playerid][0] - pos_x, gOldPos[playerid][1] - pos_y, 0.0);
 
-	// checks
-	if (IsPlayerInAnyVehicle(playerid)) {
+	vehicleid = GetPlayerVehicleID(playerid);
+
+	// checks	
+	if (vehicleid) {
 		max_distance = Protection_GetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_VEHICLE_DISTANCE);
 	} else {
 		max_distance = Protection_GetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_DISTANCE);
@@ -57,8 +60,12 @@ public Protection_Teleport(playerid)
 
 	if (distance_prev > max_distance && distance_old > max_distance) {
 		// set right pos
-		SetPlayerPos(playerid, gOldPos[playerid][0], gOldPos[playerid][1], gOldPos[playerid][2]);
-
+		if (vehicleid) {
+			SetVehiclePos(vehicleid, gOldPos[playerid][0], gOldPos[playerid][1], gOldPos[playerid][2]);
+		} else {
+			SetPlayerPos(playerid, gOldPos[playerid][0], gOldPos[playerid][1], gOldPos[playerid][2]);
+		}
+		
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_TELEPORT, "%.2f and %.2f > %.2f", distance_prev, distance_old, max_distance);
 		return 1;
