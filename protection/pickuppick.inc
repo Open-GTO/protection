@@ -42,7 +42,8 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 
 		if (distance_old > max_distance && distance_prev > max_distance) {
 			// report
-			Protection_GivePlayerWarning(playerid, PROTECTION_PICKUPPICK, "%.2f and %.2f > %.2f", distance_old, distance_prev, max_distance);
+			Protection_GivePlayerWarning(playerid, PROTECTION_PICKUPPICK, "%.2f and %.2f > %.2f",
+			                             distance_old, distance_prev, max_distance);
 			return 0;
 		}
 	}

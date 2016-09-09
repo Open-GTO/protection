@@ -62,6 +62,7 @@ enum Protection {
 	PROTECTION_RAPIDFIRE,
 	PROTECTION_BADSHOT,
 	PROTECTION_PICKUPPICK,
+	PROTECTION_VEHICLECOLOR,
 }
 
 enum ProtectionParams {
@@ -93,20 +94,21 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
-#include "protection/protection/teleport"
-#include "protection/protection/interior"
-#include "protection/protection/specialaction"
-#include "protection/protection/rcon"
-#include "protection/protection/ping"
-#include "protection/protection/health"
-#include "protection/protection/armour"
-#include "protection/protection/vehicleteleport"
-#include "protection/protection/weapon"
-#include "protection/protection/money"
-#include "protection/protection/killflood"
-#include "protection/protection/rapidfire"
-#include "protection/protection/badshot"
-#include "protection/protection/pickuppick"
+#include "protection\protection\teleport"
+#include "protection\protection\interior"
+#include "protection\protection\specialaction"
+#include "protection\protection\rcon"
+#include "protection\protection\ping"
+#include "protection\protection\health"
+#include "protection\protection\armour"
+#include "protection\protection\vehicleteleport"
+#include "protection\protection\weapon"
+#include "protection\protection\money"
+#include "protection\protection\killflood"
+#include "protection\protection\rapidfire"
+#include "protection\protection\badshot"
+#include "protection\protection\pickuppick"
+#include "protection\protection\vehiclecolor"
 
 /*
 	Vars
@@ -182,6 +184,7 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_MONEY, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_NAME, "Money");
 	Protection_SetParamString(PROTECTION_MONEY, PROTECTION_FUNCTION, "Protection_Money");
+	Protection_SetParamInt(PROTECTION_MONEY, PROTECTION_SPAWN_DELAY, 2000);
 
 	// killflood
 	Protection_SetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED, 1);
@@ -202,7 +205,11 @@ public OnGameModeInit()
 	// pickuppick
 	Protection_SetParamInt(PROTECTION_PICKUPPICK, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_PICKUPPICK, PROTECTION_NAME, "Range Pickup Pick");
-	Protection_SetParamFloat(PROTECTION_PICKUPPICK, PROTECTION_MAX_DISTANCE, 5.0);
+	Protection_SetParamFloat(PROTECTION_PICKUPPICK, PROTECTION_MAX_DISTANCE, 10.0);
+
+	// vehiclecolor
+	Protection_SetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_VEHICLECOLOR, PROTECTION_NAME, "Vehicle Color");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
