@@ -34,7 +34,12 @@ public Protection_Money(playerid)
 
 	current_money = GetPlayerMoney(playerid);
 
-	if (current_money != gPlayerMoney[playerid]) {
+	if (current_money < gPlayerMoney[playerid]) {
+		gPlayerMoney[playerid] = current_money;
+		return 0;
+	}
+
+	if (current_money > gPlayerMoney[playerid]) {
 		// set right money
 		ResetPlayerMoney(playerid);
 		GivePlayerMoney(playerid, gPlayerMoney[playerid]);
