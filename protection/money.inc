@@ -34,12 +34,7 @@ public Protection_Money(playerid)
 
 	current_money = GetPlayerMoney(playerid);
 
-	if (current_money < gPlayerMoney[playerid]) {
-		gPlayerMoney[playerid] = current_money;
-		return 0;
-	}
-
-	if (current_money > gPlayerMoney[playerid]) {
+	if (current_money != gPlayerMoney[playerid]) {
 		// set right money
 		ResetPlayerMoney(playerid);
 		GivePlayerMoney(playerid, gPlayerMoney[playerid]);
@@ -56,10 +51,11 @@ public Protection_Money(playerid)
 	GivePlayerMoney
 */
 
-stock PMoney_GivePlayerMoney(playerid, Float:money)
+stock PMoney_GivePlayerMoney(playerid, money)
 {
 	gPlayerMoney[playerid] += money;
-	return GivePlayerMoney(playerid, money);
+	ResetPlayerMoney(playerid);
+	return GivePlayerMoney(playerid, gPlayerMoney[playerid]);
 }
 #if defined _ALS_GivePlayerMoney
 	#undef GivePlayerMoney
