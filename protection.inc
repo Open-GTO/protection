@@ -9,7 +9,7 @@
 	#error "Please include a_samp or a_npc before protection"
 #endif
 
-#if !defined _FOREACH_LOCAL_VERSION
+#if !defined foreach
 	#error "Please include foreach before protection"
 #endif
 
@@ -25,6 +25,18 @@
 
 #if !defined PROTECTION_TIMER_TIME
 	#define PROTECTION_TIMER_TIME 300
+#endif
+
+#if !defined PROTECTION_USE_STREAMER
+	#if defined Streamer_IncludeFileVersion
+		#define PROTECTION_USE_STREAMER 1
+	#else
+		#define PROTECTION_USE_STREAMER 0
+	#endif
+#endif
+
+#if !defined PROTECTION_CUSTOM_VENDING
+	#define PROTECTION_CUSTOM_VENDING 1
 #endif
 
 #define PROTECTION_MAX_STRING 32
@@ -111,6 +123,10 @@ enum ProtectionPlayerInfo {
 #include "protection\protection\pickuppick"
 #include "protection\protection\vehiclecolor"
 #include "protection\protection\camera"
+
+#if PROTECTION_CUSTOM_VENDING
+	#include "protection\protection\vending"
+#endif
 
 /*
 	Vars
