@@ -63,6 +63,7 @@ enum Protection {
 	PROTECTION_BADSHOT,
 	PROTECTION_PICKUPPICK,
 	PROTECTION_VEHICLECOLOR,
+	PROTECTION_CAMERA,
 }
 
 enum ProtectionParams {
@@ -109,6 +110,7 @@ enum ProtectionPlayerInfo {
 #include "protection\protection\badshot"
 #include "protection\protection\pickuppick"
 #include "protection\protection\vehiclecolor"
+#include "protection\protection\camera"
 
 /*
 	Vars
@@ -210,6 +212,12 @@ public OnGameModeInit()
 	// vehiclecolor
 	Protection_SetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_VEHICLECOLOR, PROTECTION_NAME, "Vehicle Color");
+
+	// camera
+	Protection_SetParamInt(PROTECTION_CAMERA, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_CAMERA, PROTECTION_NAME, "Camera");
+	Protection_SetParamString(PROTECTION_CAMERA, PROTECTION_FUNCTION, "Protection_Camera");
+	Protection_SetParamFloat(PROTECTION_CAMERA, PROTECTION_MAX_DISTANCE, 200.0);
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
