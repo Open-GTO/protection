@@ -91,28 +91,35 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 
 	if (is_enabled) {
 		new
-			streamerid,
 			Float:x, Float:y, Float:z,
 			Float:distance_prev,
 			Float:distance_old,
 			Float:max_distance;
 
-		streamerid = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_PICKUP, pickupid);
+	#if defined Streamer_GetItemStreamerID
+		new streamerid = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_PICKUP, pickupid);
+	#endif
 		max_distance = Protection_GetParamFloat(PROTECTION_PICKUPPICK, PROTECTION_MAX_DISTANCE);
 
 		Protection_GetPlayerPrevPos(playerid, x, y, z);
 		if (Protection_IsValidPickup(pickupid)) {
 			Protection_GetPickupDistance(pickupid, x, y, z, distance_prev);
-		} else if (IsValidDynamicPickup(streamerid)) {
+		}
+	#if defined IsValidDynamicPickup && defined Streamer_GetDistanceToItem
+		else if (IsValidDynamicPickup(streamerid)) {
 			Streamer_GetDistanceToItem(x, y, z, STREAMER_TYPE_PICKUP, streamerid, distance_prev);
 		}
+	#endif
 
 		Protection_GetPlayerOldPos(playerid, x, y, z);
 		if (Protection_IsValidPickup(pickupid)) {
 			Protection_GetPickupDistance(pickupid, x, y, z, distance_old);
-		} else if (IsValidDynamicPickup(streamerid)) {
+		}
+	#if defined IsValidDynamicPickup && defined Streamer_GetDistanceToItem
+		else if (IsValidDynamicPickup(streamerid)) {
 			Streamer_GetDistanceToItem(x, y, z, STREAMER_TYPE_PICKUP, streamerid, distance_old);
 		}
+	#endif
 
 		if (distance_old > max_distance && distance_prev > max_distance) {
 			// report
