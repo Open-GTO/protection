@@ -107,6 +107,7 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
+#include "protection\protection\pause"
 #include "protection\protection\teleport"
 #include "protection\protection\interior"
 #include "protection\protection\specialaction"
@@ -364,6 +365,11 @@ public Protection_Timer()
 
 		// spawned check
 		if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
+			continue;
+		}
+
+		// paused check
+		if (Protection_IsPlayerPaused(playerid)) {
 			continue;
 		}
 
