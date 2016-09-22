@@ -218,6 +218,7 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_CAMERA, PROTECTION_NAME, "Camera");
 	Protection_SetParamString(PROTECTION_CAMERA, PROTECTION_FUNCTION, "Protection_Camera");
 	Protection_SetParamFloat(PROTECTION_CAMERA, PROTECTION_MAX_DISTANCE, 200.0);
+	Protection_SetParamInt(PROTECTION_CAMERA, PROTECTION_SPAWN_DELAY, 2000);
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
