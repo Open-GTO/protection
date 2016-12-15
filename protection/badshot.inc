@@ -30,6 +30,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 			case BULLET_HIT_TYPE_VEHICLE: {
 				new vehicle = GetPlayerVehicleID(playerid);
+
 				if(vehicle == hitid) {
 					Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "hittype: %d, hitid: %d, vehicle: %d", hittype, hitid, vehicle);
 					return 0;
