@@ -39,6 +39,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 		if (distance > max_distance && pos_z > -70.0) {
 			// set right pos and angle
 			SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+
 			GetVehicleZAngle(vehicleid, angle);
 			SetVehicleZAngle(vehicleid, angle);
 
