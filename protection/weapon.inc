@@ -103,8 +103,25 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 			return 0;
 		}
 
+		if(!gPlayerWeapons[playerid][slot][e_wBullets] && !ammo) {
+			return 0;
+		}
+
+		switch(slot) {
+			case 3, 4, 5: {
+				if(gPlayerWeapons[playerid][slot][e_wID] == weaponid) {
+					gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
+				}
+				else {
+					gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+				}
+			}
+			default: {
+				gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+			}
+		}
+
 		gPlayerWeapons[playerid][slot][e_wID] = weaponid;
-		gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
 	}
 
 	return GivePlayerWeapon(playerid, weaponid, ammo);
