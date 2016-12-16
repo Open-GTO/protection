@@ -109,12 +109,7 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 
 		switch (slot) {
 			case 3, 4, 5: {
-				if (gPlayerWeapons[playerid][slot][e_wID] == weaponid) {
-					gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
-				}
-				else {
-					gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
-				}
+				gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
 			}
 			default: {
 				gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
@@ -278,42 +273,6 @@ public Protection_Weapon(playerid)
 }
 
 /*
-	OnPlayerStateChange
-*/
-
-public OnPlayerStateChange(playerid, newstate, oldstate)
-{
-	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
-
-	if (is_enabled) {
-		if (oldstate == PLAYER_STATE_DRIVER) {
-			static
-				vehicle = GetPlayerVehicleID(playerid);
-
-			if (GetVehicleModel(vehicle) == 457 && gPlayerWeapons[playerid][1][e_wID] == 0) {
-				GivePlayerWeapon(playerid, WEAPON_GOLFCLUB, 1);
-			}
-		}
-	}
-
-	#if defined PWeapon_OnPlayerStateChange
-		return PWeapon_OnPlayerStateChange(playerid, newstate, oldstate);
-	#else
-		return 1;
-	#endif
-}
-#if defined _ALS_OnPlayerStateChange
-	#undef OnPlayerStateChange
-#else
-	#define _ALS_OnPlayerStateChange
-#endif
-
-#define OnPlayerStateChange PWeapon_OnPlayerStateChange
-#if defined PWeapon_OnPlayerStateChange
-	forward PWeapon_OnPlayerStateChange(playerid, newstate, oldstate);
-#endif
-
-/*
 	OnPlayerExitVehicle
 */
 
@@ -323,15 +282,23 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 	if (is_enabled) {
 		static
+			model,
 			Float:pos_x,
 			Float:pos_y,
 			Float:pos_z;
 
+		model = GetVehicleModel(vehicleid);
 		GetPlayerPos(playerid, pos_x, pos_y, pos_z);
 
-		if (pos_z >= 55.0) {
-			switch ( GetVehicleModel(vehicleid) ) {
-				case 592,577,511,512,520,593,553,476,519,460,513,548,425,417,487,488,497,563,447,469: {
+		switch (model) {
+			case 457: {
+				if (gPlayerWeapons[playerid][1][e_wID] == 0) {
+					GivePlayerWeapon(playerid, WEAPON_GOLFCLUB, 1);
+				}
+			}
+			case 592, 577, 511, 512, 520, 593, 553, 476, 519, 460
+			     513, 548, 425, 417, 487, 488, 497, 563, 447, 469: {
+				if (pos_z >= 55.0) {
 					GivePlayerWeapon(playerid, WEAPON_PARACHUTE, 1);
 				}
 			}

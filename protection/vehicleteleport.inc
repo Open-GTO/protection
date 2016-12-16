@@ -32,15 +32,14 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 			Float:pos_z,
 			Float:angle;
 
-		GetVehiclePos(vehicleid, pos_x, pos_y, );
+		GetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+		GetVehicleZAngle(vehicleid, angle);
 		distance = VectorSize(pos_x - new_x, pos_y - new_y, pos_z - new_z);
 		max_distance = Protection_GetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE);
 
 		if (distance > max_distance && pos_z > -70.0) {
 			// set right pos and angle
 			SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
-
-			GetVehicleZAngle(vehicleid, angle);
 			SetVehicleZAngle(vehicleid, angle);
 
 			// report

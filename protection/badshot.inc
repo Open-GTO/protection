@@ -29,10 +29,10 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			     BULLET_HIT_TYPE_OBJECT, BULLET_HIT_TYPE_PLAYER_OBJECT: {
 			}
 			case BULLET_HIT_TYPE_VEHICLE: {
-				new vehicle = GetPlayerVehicleID(playerid);
+				new vehicleid = GetPlayerVehicleID(playerid);
 
-				if (vehicle == hitid) {
-					Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "hittype: %d, hitid: %d, vehicle: %d", hittype, hitid, vehicle);
+				if (vehicleid == hitid) {
+					Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "hittype: %d, hitid: %d, vehicleid: %d", hittype, hitid, vehicleid);
 					return 0;
 				}
 			}
