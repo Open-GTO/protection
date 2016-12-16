@@ -103,8 +103,25 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 			return 0;
 		}
 
+		if (gPlayerWeapons[playerid][slot][e_wBullets] == 0 && ammo == 0) {
+			return 0;
+		}
+
+		switch (slot) {
+			case 3, 4, 5: {
+				if (gPlayerWeapons[playerid][slot][e_wID] == weaponid) {
+					gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
+				}
+				else {
+					gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+				}
+			}
+			default: {
+				gPlayerWeapons[playerid][slot][e_wBullets] = ammo;
+			}
+		}
+
 		gPlayerWeapons[playerid][slot][e_wID] = weaponid;
-		gPlayerWeapons[playerid][slot][e_wBullets] += ammo;
 	}
 
 	return GivePlayerWeapon(playerid, weaponid, ammo);
@@ -259,6 +276,42 @@ public Protection_Weapon(playerid)
 
 	return 0;
 }
+
+/*
+	OnPlayerStateChange
+*/
+
+public OnPlayerStateChange(playerid, newstate, oldstate)
+{
+	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
+
+	if (is_enabled) {
+		if (oldstate == PLAYER_STATE_DRIVER) {
+			static
+				vehicle = GetPlayerVehicleID(playerid);
+
+			if (GetVehicleModel(vehicle) == 457 && gPlayerWeapons[playerid][1][e_wID] == 0) {
+				GivePlayerWeapon(playerid, WEAPON_GOLFCLUB, 1);
+			}
+		}
+	}
+
+	#if defined PWeapon_OnPlayerStateChange
+		return PWeapon_OnPlayerStateChange(playerid, newstate, oldstate);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerStateChange
+	#undef OnPlayerStateChange
+#else
+	#define _ALS_OnPlayerStateChange
+#endif
+
+#define OnPlayerStateChange PWeapon_OnPlayerStateChange
+#if defined PWeapon_OnPlayerStateChange
+	forward PWeapon_OnPlayerStateChange(playerid, newstate, oldstate);
+#endif
 
 /*
 	OnPlayerExitVehicle
