@@ -90,7 +90,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_PICKUPPICK, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		new
+		static
 			Float:x, Float:y, Float:z,
 			Float:distance_prev,
 			Float:distance_old,

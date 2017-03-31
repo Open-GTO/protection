@@ -29,7 +29,7 @@ static
 forward Protection_Health(playerid);
 public Protection_Health(playerid)
 {
-	new
+	static
 		Float:current_health;
 
 	GetPlayerHealth(playerid, current_health);

@@ -29,7 +29,7 @@ static
 forward Protection_Armour(playerid);
 public Protection_Armour(playerid)
 {
-	new
+	static
 		Float:current_armour;
 
 	GetPlayerArmour(playerid, current_armour);

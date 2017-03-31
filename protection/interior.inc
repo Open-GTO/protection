@@ -78,7 +78,7 @@ stock PInterior_SetPlayerInterior(playerid, interior)
 	DisableInteriorEnterExits
 */
 
-stock PInterior_DisableInteriorEE()
+stock PInterior_DisableInteriorEntExt()
 {
 	Protection_SetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED, 1);
 	return DisableInteriorEnterExits();
@@ -89,4 +89,4 @@ stock PInterior_DisableInteriorEE()
 	#define _ALS_DisableInteriorEnterExits
 #endif
 
-#define DisableInteriorEnterExits PInterior_DisableInteriorEE
+#define DisableInteriorEnterExits PInterior_DisableInteriorEntExt
