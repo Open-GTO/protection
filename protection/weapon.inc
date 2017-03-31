@@ -291,11 +291,6 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		GetPlayerPos(playerid, pos_x, pos_y, pos_z);
 
 		switch (model) {
-			case 457: {
-				if (gPlayerWeapons[playerid][1][e_wID] == 0) {
-					GivePlayerWeapon(playerid, WEAPON_GOLFCLUB, 1);
-				}
-			}
 			case 592, 577, 511, 512, 520, 593, 553, 476, 519, 460,
 			     513, 548, 425, 417, 487, 488, 497, 563, 447, 469: {
 				if (pos_z >= 55.0) {
