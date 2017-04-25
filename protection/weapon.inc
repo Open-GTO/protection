@@ -20,6 +20,7 @@
 */
 
 #define PROTECTION_MAX_WEAPON_SLOTS 13
+#define PROTECTION_PARACHUTE_SLOT_ID 11
 
 /*
 	Enums
@@ -267,6 +268,8 @@ public Protection_Weapon(playerid)
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_wBullets], bullets);
+	} else {
+		gPlayerWeapons[playerid][slot][e_wBullets] = bullets;
 	}
 
 	return 0;
@@ -284,8 +287,8 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		switch (GetVehicleModel(vehicleid)) {
 			case 592, 577, 511, 512, 520, 593, 553, 476, 519, 460,
 			     513, 548, 425, 417, 487, 488, 497, 563, 447, 469: {
-				gPlayerWeapons[playerid][11][e_wID] = WEAPON_PARACHUTE;
-				gPlayerWeapons[playerid][11][e_wBullets] = 1;
+				gPlayerWeapons[playerid][PROTECTION_PARACHUTE_SLOT_ID][e_wID] = WEAPON_PARACHUTE;
+				gPlayerWeapons[playerid][PROTECTION_PARACHUTE_SLOT_ID][e_wBullets] = 1;
 			}
 		}
 	}
