@@ -281,21 +281,11 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		static
-			model,
-			Float:pos_x,
-			Float:pos_y,
-			Float:pos_z;
-
-		model = GetVehicleModel(vehicleid);
-		GetPlayerPos(playerid, pos_x, pos_y, pos_z);
-
-		switch (model) {
+		switch (GetVehicleModel(vehicleid)) {
 			case 592, 577, 511, 512, 520, 593, 553, 476, 519, 460,
 			     513, 548, 425, 417, 487, 488, 497, 563, 447, 469: {
-				if (pos_z >= 55.0) {
-					GivePlayerWeapon(playerid, WEAPON_PARACHUTE, 1);
-				}
+				gPlayerWeapons[playerid][11][e_wID] = WEAPON_PARACHUTE;
+				gPlayerWeapons[playerid][11][e_wBullets] = 1;
 			}
 		}
 	}
