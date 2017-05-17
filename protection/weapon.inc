@@ -292,22 +292,22 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 			}
 		}
 	}
-
-	#if defined PWeapon_OnPlayerExitVehlicle
-		return PWeapon_OnPlayerExitVehlicle(playerid, vehicleid);
+	
+	#if defined PWeapon_OnPlayerExitVehicle
+		return PWeapon_OnPlayerExitVehicle(playerid, vehicleid);
 	#else
 		return 1;
 	#endif
 }
-#if defined _ALS_OnPlayerExitVehlicle
-	#undef OnPlayerExitVehlicle
+#if defined _ALS_OnPlayerExitVehicle
+	#undef OnPlayerExitVehicle
 #else
-	#define _ALS_OnPlayerExitVehlicle
+	#define _ALS_OnPlayerExitVehicle
 #endif
 
-#define OnPlayerExitVehlicle PWeapon_OnPlayerExitVehlicle
-#if defined PWeapon_OnPlayerExitVehlicle
-	forward PWeapon_OnPlayerExitVehlicle(playerid, vehicleid);
+#define OnPlayerExitVehicle PWeapon_OnPlayerExitVehicle
+#if defined PWeapon_OnPlayerExitVehicle
+	forward PWeapon_OnPlayerExitVehicle(playerid, vehicleid);
 #endif
 
 /*
