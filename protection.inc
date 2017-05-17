@@ -107,26 +107,26 @@ enum ProtectionPlayerInfo {
 	Includes
 */
 
-#include "protection\protection\pause"
-#include "protection\protection\teleport"
-#include "protection\protection\interior"
-#include "protection\protection\specialaction"
-#include "protection\protection\rcon"
-#include "protection\protection\ping"
-#include "protection\protection\health"
-#include "protection\protection\armour"
-#include "protection\protection\vehicleteleport"
-#include "protection\protection\weapon"
-#include "protection\protection\money"
-#include "protection\protection\killflood"
-#include "protection\protection\rapidfire"
-#include "protection\protection\badshot"
-#include "protection\protection\pickuppick"
-#include "protection\protection\vehiclecolor"
-#include "protection\protection\camera"
+#include "protection/pause"
+#include "protection/teleport"
+#include "protection/interior"
+#include "protection/specialaction"
+#include "protection/rcon"
+#include "protection/ping"
+#include "protection/health"
+#include "protection/armour"
+#include "protection/vehicleteleport"
+#include "protection/weapon"
+#include "protection/money"
+#include "protection/killflood"
+#include "protection/rapidfire"
+#include "protection/badshot"
+#include "protection/pickuppick"
+#include "protection/vehiclecolor"
+#include "protection/camera"
 
 #if PROTECTION_CUSTOM_VENDING
-	#include "protection\protection\vending"
+	#include "protection/vending"
 #endif
 
 /*
