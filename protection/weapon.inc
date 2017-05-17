@@ -139,7 +139,7 @@ stock PWeapon_ResetPlayerWeapons(playerid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		for (new slot = 0; i < PROTECTION_MAX_WEAPON_SLOTS; i++) {
+		for (new slot = 0; slot < PROTECTION_MAX_WEAPON_SLOTS; slot++) {
 			gPlayerWeapons[playerid][slot][e_ID] = 0;
 			gPlayerWeapons[playerid][slot][e_Bullets] = 0;
 		}
