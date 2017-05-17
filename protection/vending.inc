@@ -19,7 +19,7 @@
 	Enums
 */
 
-enum E_VENDING_MACHINE {
+enum e_PT_VENDING_MACHINE {
 	e_Model,
 	e_Interior,
 	Float:e_PosX,
@@ -36,7 +36,7 @@ enum E_VENDING_MACHINE {
 	Vars
 */
 
-static const Float:sc_VendingMachines[][E_VENDING_MACHINE] = {
+static const Float:sc_VendingMachines[][e_PT_VENDING_MACHINE] = {
 	{955, 0, -862.82, 1536.60, 21.98, 0.00, 0.00, 180.00, -862.84, 1537.60},
 	{956, 0, 2271.72, -76.46, 25.96, 0.00, 0.00, 0.00, 2271.72, -77.46},
 	{955, 0, 1277.83, 372.51, 18.95, 0.00, 0.00, 64.00, 1278.73, 372.07},

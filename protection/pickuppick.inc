@@ -19,14 +19,14 @@
 	Enums
 */
 
-enum e_PICKUP_INFO {
-	bool:e_PICKUP_IS_VALID,
-	e_PICKUP_MODEL,
-	e_PICKUP_TYPE,
-	Float:e_PICKUP_X,
-	Float:e_PICKUP_Y,
-	Float:e_PICKUP_Z,
-	e_PICKUP_WORLD,
+enum e_PT_PICKUP_INFO {
+	bool:e_IsValid,
+	e_Model,
+	e_Type,
+	Float:e_PosX,
+	Float:e_PosY,
+	Float:e_PosZ,
+	e_World,
 }
 
 /*
@@ -34,7 +34,7 @@ enum e_PICKUP_INFO {
 */
 
 static
-	gPickups[MAX_PICKUPS][e_PICKUP_INFO];
+	gPickups[MAX_PICKUPS][e_PT_PICKUP_INFO];
 
 /*
 	CreatePickup
@@ -47,13 +47,13 @@ stock Protection_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualwor
 		return -1;
 	}
 
-	gPickups[pickupid][e_PICKUP_IS_VALID] = true;
-	gPickups[pickupid][e_PICKUP_MODEL] = model;
-	gPickups[pickupid][e_PICKUP_TYPE] = type;
-	gPickups[pickupid][e_PICKUP_X] = X;
-	gPickups[pickupid][e_PICKUP_Y] = Y;
-	gPickups[pickupid][e_PICKUP_Z] = Z;
-	gPickups[pickupid][e_PICKUP_WORLD] = virtualworld;
+	gPickups[pickupid][e_IsValid] = true;
+	gPickups[pickupid][e_Model] = model;
+	gPickups[pickupid][e_Type] = type;
+	gPickups[pickupid][e_PosX] = X;
+	gPickups[pickupid][e_PosY] = Y;
+	gPickups[pickupid][e_PosZ] = Z;
+	gPickups[pickupid][e_World] = virtualworld;
 	return pickupid;
 }
 #if defined _ALS_CreatePickup
@@ -70,7 +70,7 @@ stock Protection_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualwor
 
 stock Protection_DestroyPickup(pickup)
 {
-	gPickups[pickupid][e_PICKUP_IS_VALID] = false;
+	gPickups[pickupid][e_IsValid] = false;
 	return DestroyPickup(pickup);
 }
 #if defined _ALS_DestroyPickup
@@ -152,7 +152,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 
 stock Protection_IsValidPickup(pickupid)
 {
-	return 0 <= pickupid < MAX_PICKUPS && gPickups[pickupid][e_PICKUP_IS_VALID];
+	return 0 <= pickupid < MAX_PICKUPS && gPickups[pickupid][e_IsValid];
 }
 
 stock Protection_GetPickupWorld(pickupid)
@@ -161,7 +161,7 @@ stock Protection_GetPickupWorld(pickupid)
 		return -1;
 	}
 
-	return gPickups[pickupid][e_PICKUP_WORLD];
+	return gPickups[pickupid][e_World];
 }
 
 stock Protection_GetPickupType(pickupid)
@@ -170,7 +170,7 @@ stock Protection_GetPickupType(pickupid)
 		return -1;
 	}
 
-	return gPickups[pickupid][e_PICKUP_TYPE];
+	return gPickups[pickupid][e_Type];
 }
 
 stock Protection_GetPickupModel(pickupid)
@@ -179,7 +179,7 @@ stock Protection_GetPickupModel(pickupid)
 		return -1;
 	}
 
-	return gPickups[pickupid][e_PICKUP_MODEL];
+	return gPickups[pickupid][e_Model];
 }
 
 stock Protection_GetPickupPos(pickupid, &Float:x, &Float:y, &Float:z)
@@ -188,9 +188,9 @@ stock Protection_GetPickupPos(pickupid, &Float:x, &Float:y, &Float:z)
 		return 0;
 	}
 
-	x = gPickups[pickupid][e_PICKUP_X];
-	y = gPickups[pickupid][e_PICKUP_Y];
-	z = gPickups[pickupid][e_PICKUP_Z];
+	x = gPickups[pickupid][e_PosX];
+	y = gPickups[pickupid][e_PosY];
+	z = gPickups[pickupid][e_PosZ];
 	return 1;
 }
 
@@ -200,8 +200,8 @@ stock Protection_GetPickupDistance(pickupid, Float:x, Float:y, Float:z, &Float:d
 		return 0;
 	}
 
-	distance = VectorSize(x - gPickups[pickupid][e_PICKUP_X],
-	                      y - gPickups[pickupid][e_PICKUP_Y],
-	                      z - gPickups[pickupid][e_PICKUP_Z]);
+	distance = VectorSize(x - gPickups[pickupid][e_PosX],
+	                      y - gPickups[pickupid][e_PosY],
+	                      z - gPickups[pickupid][e_PosZ]);
 	return 1;
 }
