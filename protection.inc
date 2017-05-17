@@ -529,16 +529,16 @@ stock Protection_SetParamString(Protection:protection, ProtectionParams:param, v
 {
 	if (protection == PROTECTION_ALL) {
 		for (new i = 0; i < sizeof(gParam); i++) {
-			strmid(gParam[Protection:i][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
+			Protection_strcpy(gParam[Protection:i][param], value, PROTECTION_MAX_STRING);
 		}
 	} else {
-		strmid(gParam[protection][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
+		Protection_strcpy(gParam[protection][param], value, PROTECTION_MAX_STRING);
 	}
 }
 
 stock Protection_GetParamString(Protection:protection, ProtectionParams:param, value[], size = sizeof(value))
 {
-	strmid(value, gParam[protection][param], 0, strlen(gParam[protection][param]), size);
+	Protection_strcpy(value, gParam[protection][param], size);
 }
 
 /*
@@ -589,16 +589,16 @@ stock Protection_SetPlayerParamString(playerid, Protection:protection, Protectio
 {
 	if (protection == PROTECTION_ALL) {
 		for (new i = 0; i < sizeof(gPlayerParam[]); i++) {
-			strmid(gPlayerParam[playerid][Protection:i][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
+			Protection_strcpy(gPlayerParam[playerid][Protection:i][param], value, PROTECTION_MAX_STRING);
 		}
 	} else {
-		strmid(gPlayerParam[playerid][protection][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
+		Protection_strcpy(gPlayerParam[playerid][protection][param], value, PROTECTION_MAX_STRING);
 	}
 }
 
 stock Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[], size = sizeof(value))
 {
-	strmid(value, gPlayerParam[playerid][protection][param], 0, strlen(gPlayerParam[playerid][protection][param]), size);
+	Protection_strcpy(value, gPlayerParam[playerid][protection][param], size);
 }
 
 /*
@@ -635,12 +635,12 @@ stock Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param)
 
 stock Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[])
 {
-	strmid(gPlayerInfo[playerid][param], value, 0, strlen(value), PROTECTION_MAX_STRING);
+	Protection_strcpy(gPlayerInfo[playerid][param], value, PROTECTION_MAX_STRING);
 }
 
 stock Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value))
 {
-	strmid(value, gPlayerInfo[playerid][param], 0, strlen(gPlayerInfo[playerid][param]), size);
+	Protection_strcpy(value, gPlayerInfo[playerid][param], size);
 }
 
 /*
@@ -655,4 +655,14 @@ stock Protection_GetTickDiff(newtick, oldtick)
 		return (cellmax - oldtick + 1) - (cellmin - newtick);
 	}
 	return newtick - oldtick;
+}
+
+/*
+	strcpy implementation
+*/
+
+stock Protection_strcpy(result[], source[], const size = sizeof(result))
+{
+	result[0] = 0;
+	return strcat(result, source, size);
 }
