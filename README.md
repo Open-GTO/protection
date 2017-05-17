@@ -1,5 +1,5 @@
-# protection
-Flexible server protection system (development)
+# Protection
+Flexible server protection system (development).
 
 # Callbacks
 ```Pawn
@@ -9,28 +9,28 @@ forward OnPlayerGetProtectionWarning(playerid, Protection:protection, bool:warn_
 # Functions
 ```Pawn
 // protection params
-Protection_SetParamInt(Protection:protection, ProtectionParams:param, value)
-Protection_GetParamInt(Protection:protection, ProtectionParams:param)
-Protection_SetParamFloat(Protection:protection, ProtectionParams:param, Float:value)
-Float:Protection_GetParamFloat(Protection:protection, ProtectionParams:param)
-Protection_SetParamString(Protection:protection, ProtectionParams:param, value[])
-Protection_GetParamString(Protection:protection, ProtectionParams:param, value[], size = sizeof(value))
+Protection_SetParamInt(Protection:protection, ProtectionParams:param, value);
+Protection_GetParamInt(Protection:protection, ProtectionParams:param);
+Protection_SetParamFloat(Protection:protection, ProtectionParams:param, Float:value);
+Float:Protection_GetParamFloat(Protection:protection, ProtectionParams:param);
+Protection_SetParamString(Protection:protection, ProtectionParams:param, value[]);
+Protection_GetParamString(Protection:protection, ProtectionParams:param, value[], size = sizeof(value));
 
 // player protection params
-Protection_SetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param, value)
-Protection_GetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param)
-Protection_SetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param, Float:value)
-Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param)
-Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[])
-Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[], size = sizeof(value))
+Protection_SetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param, value);
+Protection_GetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param);
+Protection_SetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param, Float:value);
+Float:Protection_GetPlayerParamFloat(playerid, Protection:protection, ProtectionPlayerParams:param);
+Protection_SetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[]);
+Protection_GetPlayerParamString(playerid, Protection:protection, ProtectionPlayerParams:param, value[], size = sizeof(value));
 
 // player info
-Protection_SetPlayerInfoInt(playerid, ProtectionPlayerInfo:param, value)
-Protection_GetPlayerInfoInt(playerid, ProtectionPlayerInfo:param)
-Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param, Float:value)
-Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param)
-Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[])
-Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value))
+Protection_SetPlayerInfoInt(playerid, ProtectionPlayerInfo:param, value);
+Protection_GetPlayerInfoInt(playerid, ProtectionPlayerInfo:param);
+Protection_SetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param, Float:value);
+Float:Protection_GetPlayerInfoFloat(playerid, ProtectionPlayerInfo:param);
+Protection_SetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[]);
+Protection_GetPlayerInfoString(playerid, ProtectionPlayerInfo:param, value[], size = sizeof(value));
 ```
 
 # Function params
@@ -43,6 +43,17 @@ enum Protection {
 	PROTECTION_RCON,
 	PROTECTION_PING,
 	PROTECTION_HEALTH,
+	PROTECTION_ARMOUR,
+	PROTECTION_VEHICLETELEPORT,
+	PROTECTION_WEAPON,
+	PROTECTION_MONEY,
+	PROTECTION_KILLFLOOD,
+	PROTECTION_WEAPONDAMAGE,
+	PROTECTION_RAPIDFIRE,
+	PROTECTION_BADSHOT,
+	PROTECTION_PICKUPPICK,
+	PROTECTION_VEHICLECOLOR,
+	PROTECTION_CAMERA,
 }
 
 enum ProtectionParams {
