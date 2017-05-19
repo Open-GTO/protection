@@ -82,7 +82,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	if (is_enabled) {
 		static
 			current_tick,
-			ping
+			ping,
 			shot_time,
 			max_shot_time;
 
