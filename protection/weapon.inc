@@ -104,10 +104,6 @@ stock PWeapon_GivePlayerWeapon(playerid, weaponid, ammo)
 			return 0;
 		}
 
-		if (gPlayerWeapons[playerid][slot][e_Bullets] == 0 && ammo == 0) {
-			return 0;
-		}
-
 		switch (slot) {
 			case 3, 4, 5: {
 				gPlayerWeapons[playerid][slot][e_Bullets] += ammo;
