@@ -39,49 +39,49 @@ static
 	gPlayerWeapons[MAX_PLAYERS][PROTECTION_MAX_WEAPON_SLOTS][e_PT_WEAPON_INFO],
 	gWeaponSlots[] = {
 		0, // 0
-		0, // 1
-		1, // 2
-		1, // 3
-		1, // 4
-		1, // 5
-		1, // 6
-		1, // 7
-		1, // 8
-		1, // 9
-		10, // 10
-		10, // 11
-		10, // 12
-		10, // 13
-		10, // 14
-		10, // 15
-		8, // 16
-		8, // 17
-		8, // 18
+		0, // 1 - WEAPON_BRASSKNUCKLE
+		1, // 2 - WEAPON_GOLFCLUB
+		1, // 3 - WEAPON_NITESTICK
+		1, // 4 - WEAPON_KNIFE
+		1, // 5 - WEAPON_BAT
+		1, // 6 - WEAPON_SHOVEL
+		1, // 7 - WEAPON_POOLSTICK
+		1, // 8 - WEAPON_KATANA
+		1, // 9 - WEAPON_CHAINSAW
+		10, // 10 - WEAPON_DILDO
+		10, // 11 - WEAPON_DILDO2
+		10, // 12 - WEAPON_VIBRATOR
+		10, // 13 - WEAPON_VIBRATOR2
+		10, // 14 - WEAPON_FLOWER
+		10, // 15 - WEAPON_CANE
+		8, // 16 - WEAPON_GRENADE
+		8, // 17 - WEAPON_TEARGAS
+		8, // 18 - WEAPON_MOLTOV
 		-1, // 19
 		-1, // 20
 		-1, // 21
-		2, // 22
-		2, // 23
-		2, // 24
-		3, // 25
-		3, // 26
-		3, // 27
-		4, // 28
-		4, // 29
-		5, // 30
-		5, // 31
-		4, // 32
-		6, // 33
-		6, // 34
-		7, // 35
-		7, // 36
-		7, // 37
-		7, // 38
-		8, // 39
-		12, // 40
-		9, // 41
-		9, // 42
-		9, // 43
+		2, // 22 - WEAPON_COLT45
+		2, // 23 - WEAPON_SILENCED
+		2, // 24 - WEAPON_DEAGLE
+		3, // 25 - WEAPON_SHOTGUN
+		3, // 26 - WEAPON_SAWEDOFF
+		3, // 27 - WEAPON_SHOTGSPA
+		4, // 28 - WEAPON_UZI
+		4, // 29 - WEAPON_MP5
+		5, // 30 - WEAPON_AK47
+		5, // 31 - WEAPON_M4
+		4, // 32 - WEAPON_TEC9
+		6, // 33 - WEAPON_RIFLE
+		6, // 34 - WEAPON_SNIPER
+		7, // 35 - WEAPON_ROCKETLAUNCHER
+		7, // 36 - WEAPON_HEATSEEKER
+		7, // 37 - WEAPON_FLAMETHROWER
+		7, // 38 - WEAPON_MINIGUN
+		8, // 39 - WEAPON_SATCHEL
+		12, // 40 - WEAPON_BOMB
+		9, // 41 - WEAPON_SPRAYCAN
+		9, // 42 - WEAPON_FIREEXTINGUISHER
+		9, // 43 - WEAPON_CAMERA
 		11, // 44
 		11, // 45
 		11 // 46
