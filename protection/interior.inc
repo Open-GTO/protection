@@ -26,6 +26,55 @@
 static
 	gPlayerInterior[MAX_PLAYERS char];
 
+/*
+	OnPlayerConnect
+*/
+
+public OnPlayerConnect(playerid)
+{
+	gPlayerInterior{playerid} = 0;
+
+	#if defined PInterio_OnPlayerConnect
+		return PInterio_OnPlayerConnect(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerConnect
+	#undef OnPlayerConnect
+#else
+	#define _ALS_OnPlayerConnect
+#endif
+
+#define OnPlayerConnect PInterio_OnPlayerConnect
+#if defined PInterio_OnPlayerConnect
+	forward PInterio_OnPlayerConnect(playerid);
+#endif
+
+/*
+	OnPlayerSpawn
+*/
+
+public OnPlayerSpawn(playerid)
+{
+	gPlayerInterior{playerid} = 0;
+
+	#if defined PInterio_OnPlayerSpawn
+		return PInterio_OnPlayerSpawn(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+
+#define OnPlayerSpawn PInterio_OnPlayerSpawn
+#if defined PInterio_OnPlayerSpawn
+	forward PInterio_OnPlayerSpawn(playerid);
+#endif
 
 /*
 	OnPlayerInteriorChange
