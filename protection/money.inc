@@ -23,6 +23,31 @@ static
 	gPlayerMoney[MAX_PLAYERS];
 
 /*
+	OnPlayerConnect
+*/
+
+public OnPlayerConnect(playerid)
+{
+	gPlayerMoney[playerid] = 0;
+
+	#if defined PMoney_OnPlayerConnect
+		return PMoney_OnPlayerConnect(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerConnect
+	#undef OnPlayerConnect
+#else
+	#define _ALS_OnPlayerConnect
+#endif
+
+#define OnPlayerConnect PMoney_OnPlayerConnect
+#if defined PMoney_OnPlayerConnect
+	forward PMoney_OnPlayerConnect(playerid);
+#endif
+
+/*
 	Call function
 */
 
