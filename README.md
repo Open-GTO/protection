@@ -1,6 +1,10 @@
 # Protection
 Flexible server protection system (development).
 
+# Dependencies
+- [foreach](https://github.com/Open-GTO/foreach)
+- [getspawninfo](https://github.com/Open-GTO/getspawninfo)
+
 # Callbacks
 ```Pawn
 forward OnPlayerGetProtectionWarning(playerid, Protection:protection, bool:warn_reached, message[]);
