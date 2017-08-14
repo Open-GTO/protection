@@ -52,6 +52,31 @@ public Protection_Armour(playerid)
 }
 
 /*
+	OnPlayerSpawn
+*/
+
+public OnPlayerSpawn(playerid)
+{
+	gPlayerArmour[playerid] = 0.0;
+
+	#if defined Protection_Armour_OnPlayerSpawn
+		return Protection_Armour_OnPlayerSpawn(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerSpawn
+	#undef OnPlayerSpawn
+#else
+	#define _ALS_OnPlayerSpawn
+#endif
+
+#define OnPlayerSpawn Protection_Armour_OnPlayerSpawn
+#if defined Protection_Armour_OnPlayerSpawn
+	forward Protection_Armour_OnPlayerSpawn(playerid);
+#endif
+
+/*
 	SetPlayerArmour
 */
 
