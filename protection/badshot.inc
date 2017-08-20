@@ -24,6 +24,11 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
+		if(!IsBulletWeapon(weaponid)) {
+			Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "weaponid: %d, hittype: %d, hitid: %d", weaponid, hittype, hitid);
+			return 0;
+		}
+
 		switch (hittype) {
 			case BULLET_HIT_TYPE_NONE, BULLET_HIT_TYPE_PLAYER,
 			     BULLET_HIT_TYPE_OBJECT, BULLET_HIT_TYPE_PLAYER_OBJECT: {
@@ -59,3 +64,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 #if defined PBadshot_OnPlayerWeaponShot
 	forward PBadshot_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
+
+/*
+	Protection_IsBulletWeapon
+*/
+
+stock Protection_IsBulletWeapon(weaponid)
+{
+	return (WEAPON_COLT45 <= weaponid <= WEAPON_SNIPER) || weaponid == WEAPON_MINIGUN;
+}
