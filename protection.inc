@@ -419,6 +419,13 @@ public Protection_Timer()
 	Protection report
 */
 
+forward _Protection_SysreqFix();
+public _Protection_SysreqFix()
+{
+	new temp[2];
+	format(temp, sizeof(temp), "");
+}
+
 stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = "", {Float, _}:...)
 {
 	static
