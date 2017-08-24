@@ -24,7 +24,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		if(!IsBulletWeapon(weaponid)) {
+		if(!Protection_IsBulletWeapon(weaponid)) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "weaponid: %d, hittype: %d, hitid: %d", weaponid, hittype, hitid);
 			return 0;
 		}
