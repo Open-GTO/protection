@@ -426,7 +426,7 @@ public _Protection_SysreqFix()
 	format(temp, sizeof(temp), "");
 }
 
-stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = "", {Float, _}:...)
+stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[], {Float, _}:...)
 {
 	static
 		warn_max,
@@ -440,41 +440,36 @@ stock Protection_GivePlayerWarning(playerid, Protection:protection, fstring[] = 
 	Protection_SetPlayerParamInt(playerid, protection, PROTECTION_PLAYER_WARNING_COUNT, warn_count);
 
 	// format
-	#define BYTES_PER_CELL 4
-	static const STATIC_ARGS = 3;
+	static const
+		BYTES_PER_CELL = 4,
+		STATIC_ARGS = 3;
 
-	new n = (numargs() - STATIC_ARGS) * BYTES_PER_CELL;
+	static
+		args,
+		arg_start,
+		arg_end,
+		message[144];
 
-	if (n) {
-		new message[144], arg_start, arg_end;
-		#emit CONST.alt			fstring
-		#emit LCTRL				5
-		#emit ADD
-		#emit STOR.S.pri		arg_start
+	#emit LOAD.S.pri 8
+	#emit STOR.pri args
 
-		#emit LOAD.S.alt		n
-		#emit ADD
-		#emit STOR.S.pri		arg_end
-		do {
-			#emit LOAD.I
+	if (args > STATIC_ARGS * BYTES_PER_CELL) {
+		#emit ADDR.pri fstring
+		#emit STOR.pri arg_start
+
+		for (arg_end = arg_start + (args - STATIC_ARGS * BYTES_PER_CELL); arg_end > arg_start; arg_end -= BYTES_PER_CELL)
+		{
+			#emit LREF.pri arg_end
 			#emit PUSH.pri
-			arg_end -= BYTES_PER_CELL;
-			#emit LOAD.S.pri	arg_end
-		} while (arg_end > arg_start);
+		}
+		#emit PUSH.S fstring
+		#emit PUSH.C 144
+		#emit PUSH.C message
+		#emit PUSH.C args
+		#emit SYSREQ.C format
 
-		#emit PUSH.S			fstring
-		#emit PUSH.C			144
-		#emit PUSH.ADR			message
-
-		n += BYTES_PER_CELL * 3;
-		#emit PUSH.S			n
-		#emit SYSREQ.C			format
-
-		n += BYTES_PER_CELL;
-		#emit LCTRL				4
-		#emit LOAD.S.alt		n
-		#emit ADD
-		#emit SCTRL				4
+		#emit LCTRL 5
+		#emit SCTRL 4
 
 		CallRemoteFunction("OnPlayerGetProtectionWarning", "iiis", playerid, _:protection, warn_count >= warn_max, message);
 	} else {
