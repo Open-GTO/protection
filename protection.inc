@@ -39,6 +39,10 @@
 	#define PROTECTION_CUSTOM_VENDING 1
 #endif
 
+#if !defined PROTECTION_MAX_AVAILABLE_IDS
+	#define PROTECTION_MAX_AVAILABLE_IDS 100
+#endif
+
 #define PROTECTION_MAX_STRING 32
 #define PROTECTION_MAX_IP     14
 
@@ -76,6 +80,7 @@ enum Protection {
 	PROTECTION_PICKUPPICK,
 	PROTECTION_VEHICLECOLOR,
 	PROTECTION_CAMERA,
+	PROTECTION_CAMERAMODE,
 }
 
 enum ProtectionParams {
@@ -89,6 +94,7 @@ enum ProtectionParams {
 	Float:PROTECTION_MAX_DISTANCE,
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
 	PROTECTION_MAX_PING,
+	PROTECTION_AVAILABLE_IDS[PROTECTION_MAX_AVAILABLE_IDS],
 }
 
 enum ProtectionPlayerParams {
@@ -124,6 +130,7 @@ enum ProtectionPlayerInfo {
 #include "protection/pickuppick"
 #include "protection/vehiclecolor"
 #include "protection/camera"
+#include "protection/cameramode"
 
 #if PROTECTION_CUSTOM_VENDING
 	#include "protection/vending"
@@ -236,6 +243,12 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_CAMERA, PROTECTION_FUNCTION, "Protection_Camera");
 	Protection_SetParamFloat(PROTECTION_CAMERA, PROTECTION_MAX_DISTANCE, 200.0);
 	Protection_SetParamInt(PROTECTION_CAMERA, PROTECTION_SPAWN_DELAY, 2000);
+
+	// cameramode
+	Protection_SetParamInt(PROTECTION_CAMERAMODE, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_CAMERAMODE, PROTECTION_NAME, "Camera Mode");
+	Protection_SetParamString(PROTECTION_CAMERAMODE, PROTECTION_FUNCTION, "Protection_CameraMode");
+	Protection_SetParamArray(PROTECTION_CAMERAMODE, PROTECTION_AVAILABLE_IDS, {3, 4, 7, 8, 15, 16, 18, 22, 46, 51, 53, 55, 56, 57, 58, 59, 62, 63, 64, -1});
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
@@ -521,6 +534,26 @@ stock Protection_SetParamFloat(Protection:protection, ProtectionParams:param, Fl
 stock Float:Protection_GetParamFloat(Protection:protection, ProtectionParams:param)
 {
 	return Float:gParam[protection][param];
+}
+
+/*
+	Array params
+*/
+
+stock Protection_SetParamArray(Protection:protection, ProtectionParams:param, values[], const size = sizeof(values))
+{
+	if (protection == PROTECTION_ALL) {
+		for (new i = 0; i < sizeof(gParam); i++) {
+			memcpy(gParam[Protection:i][param], values, 0, size * 4, PROTECTION_MAX_AVAILABLE_IDS);
+		}
+	} else {
+		memcpy(gParam[protection][param], values, 0, size * 4, PROTECTION_MAX_AVAILABLE_IDS);
+	}
+}
+
+stock Protection_GetParamArray(Protection:protection, ProtectionParams:param, values[], size = sizeof(values))
+{
+	memcpy(values, gParam[protection][param], 0, PROTECTION_MAX_AVAILABLE_IDS, size * 4);
 }
 
 /*
