@@ -100,6 +100,7 @@ enum ProtectionParams {
 enum ProtectionPlayerParams {
 	PROTECTION_PLAYER_DISABLED,
 	PROTECTION_PLAYER_WARNING_COUNT,
+	PROTECTION_PLAYER_BLOCK_UPDATE,
 }
 
 enum ProtectionPlayerInfo {
@@ -352,6 +353,142 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 #define OnPlayerStateChange Protection_OnPlayerStateChange
 #if defined Protection_OnPlayerStateChange
 	forward Protection_OnPlayerStateChange(playerid, newstate, oldstate);
+#endif
+
+/*
+	OnPlayerUpdate
+*/
+
+public OnPlayerUpdate(playerid)
+{
+	static
+		i,
+		bool:blocked;
+
+	for (i = 0; i < sizeof(gParam); i++) {
+		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
+		if (blocked) {
+			return 0;
+		}
+	}
+
+	#if defined Protection_OnPlayerUpdate
+		return Protection_OnPlayerUpdate(playerid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerUpdate
+	#undef OnPlayerUpdate
+#else
+	#define _ALS_OnPlayerUpdate
+#endif
+
+#define OnPlayerUpdate Protection_OnPlayerUpdate
+#if defined Protection_OnPlayerUpdate
+	forward Protection_OnPlayerUpdate(playerid);
+#endif
+
+/*
+	OnPlayerWeaponShot
+*/
+
+public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+{
+	static
+		i,
+		bool:blocked;
+
+	for (i = 0; i < sizeof(gParam); i++) {
+		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
+		if (blocked) {
+			return 0;
+		}
+	}
+
+	#if defined Protection_OnPlayerWeaponShot
+		return Protection_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, fX, fY, fZ);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnPlayerWeaponShot
+	#undef OnPlayerWeaponShot
+#else
+	#define _ALS_OnPlayerWeaponShot
+#endif
+
+#define OnPlayerWeaponShot Protection_OnPlayerWeaponShot
+#if defined Protection_OnPlayerWeaponShot
+	forward Protection_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+#endif
+
+/*
+	OnUnoccupiedVehicleUpdate
+*/
+
+public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
+{
+	static
+		i,
+		bool:blocked;
+
+	for (i = 0; i < sizeof(gParam); i++) {
+		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
+		if (blocked) {
+			return 0;
+		}
+	}
+
+	#if defined Prot_OnUnoccupiedVehicleUpdate
+		return Prot_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, new_x, new_y, new_z, vel_x, vel_y, vel_z);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnUnoccupiedVehicleUpdate
+	#undef OnUnoccupiedVehicleUpdate
+#else
+	#define _ALS_OnUnoccupiedVehicleUpdate
+#endif
+
+#define OnUnoccupiedVehicleUpdate Prot_OnUnoccupiedVehicleUpdate
+#if defined Prot_OnUnoccupiedVehicleUpdate
+	forward Prot_OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z);
+#endif
+
+/*
+	OnTrailerUpdate
+*/
+
+public OnTrailerUpdate(playerid, vehicleid)
+{
+	static
+		i,
+		bool:blocked;
+
+	for (i = 0; i < sizeof(gParam); i++) {
+		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
+		if (blocked) {
+			return 0;
+		}
+	}
+
+	#if defined Protection_OnTrailerUpdate
+		return Protection_OnTrailerUpdate(playerid, vehicleid);
+	#else
+		return 1;
+	#endif
+}
+#if defined _ALS_OnTrailerUpdate
+	#undef OnTrailerUpdate
+#else
+	#define _ALS_OnTrailerUpdate
+#endif
+
+#define OnTrailerUpdate Protection_OnTrailerUpdate
+#if defined Protection_OnTrailerUpdate
+	forward Protection_OnTrailerUpdate(playerid, vehicleid);
 #endif
 
 /*
