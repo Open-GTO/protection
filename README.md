@@ -19,6 +19,8 @@ Protection_SetParamFloat(Protection:protection, ProtectionParams:param, Float:va
 Float:Protection_GetParamFloat(Protection:protection, ProtectionParams:param);
 Protection_SetParamString(Protection:protection, ProtectionParams:param, value[]);
 Protection_GetParamString(Protection:protection, ProtectionParams:param, value[], size = sizeof(value));
+Protection_SetParamArray(Protection:protection, ProtectionParams:param, values[], const size = sizeof(values));
+Protection_GetParamArray(Protection:protection, ProtectionParams:param, values[], size = sizeof(values));
 
 // player protection params
 Protection_SetPlayerParamInt(playerid, Protection:protection, ProtectionPlayerParams:param, value);
@@ -58,6 +60,7 @@ enum Protection {
 	PROTECTION_PICKUPPICK,
 	PROTECTION_VEHICLECOLOR,
 	PROTECTION_CAMERA,
+	PROTECTION_CAMERAMODE,
 }
 
 enum ProtectionParams {
@@ -71,11 +74,13 @@ enum ProtectionParams {
 	Float:PROTECTION_MAX_DISTANCE,
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
 	PROTECTION_MAX_PING,
+	PROTECTION_AVAILABLE_IDS[PROTECTION_MAX_AVAILABLE_IDS],
 }
 
 enum ProtectionPlayerParams {
 	PROTECTION_PLAYER_DISABLED,
 	PROTECTION_PLAYER_WARNING_COUNT,
+	PROTECTION_PLAYER_BLOCK_UPDATE,
 }
 
 enum ProtectionPlayerInfo {
@@ -90,6 +95,7 @@ enum ProtectionPlayerInfo {
 ```Pawn
 #include <a_samp>
 #include "foreach"
+#include "getspawninfo"
 #include "protection"
 
 main() {}
