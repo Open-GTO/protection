@@ -25,7 +25,7 @@ public Protection_CameraMode(playerid)
 	new camera_mode = GetPlayerCameraMode(playerid);
 
 	// checks
-	if (!Protection_IsValidCameraMode(GetPlayerCameraMode(playerid))) {
+	if (!Protection_IsValidCameraMode(camera_mode)) {
 		// block player updates
 		Protection_SetPlayerParamInt(playerid, PROTECTION_CAMERAMODE, PROTECTION_PLAYER_BLOCK_UPDATE, 1);
 
