@@ -147,7 +147,7 @@ static
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
 static const
-	NULL_gPlayerParam[Protection][ProtectionPlayerParams],
+	NULL_gPlayerParam[ProtectionPlayerParams],
 	NULL_gPlayerInfo[ProtectionPlayerInfo];
 
 /*
@@ -254,12 +254,6 @@ public OnGameModeInit()
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
 
-	// compiler crash fix
-#if __Pawn != 0x030A
-	new crash_fix[1];
-	format(crash_fix, 1, "");
-#endif
-
 	#if defined Protection_OnGameModeInit
 		return Protection_OnGameModeInit();
 	#else
@@ -284,7 +278,9 @@ public OnGameModeInit()
 public OnPlayerConnect(playerid)
 {
 	// reset arrays data
-	gPlayerParam[playerid] = NULL_gPlayerParam;
+	for (new i = 0; i < sizeof(gParam); i++) {
+		gPlayerParam[playerid][Protection:i] = NULL_gPlayerParam;
+	}
 	gPlayerInfo[playerid] = NULL_gPlayerInfo;
 
 	// store connect data
@@ -365,7 +361,7 @@ public OnPlayerUpdate(playerid)
 		i,
 		bool:blocked;
 
-	for (i = 0; i < sizeof(gParam); i++) {
+	for (i = 1; i < sizeof(gParam); i++) {
 		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
 		if (blocked) {
 			return 0;
@@ -399,7 +395,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		i,
 		bool:blocked;
 
-	for (i = 0; i < sizeof(gParam); i++) {
+	for (i = 1; i < sizeof(gParam); i++) {
 		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
 		if (blocked) {
 			return 0;
@@ -433,7 +429,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 		i,
 		bool:blocked;
 
-	for (i = 0; i < sizeof(gParam); i++) {
+	for (i = 1; i < sizeof(gParam); i++) {
 		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
 		if (blocked) {
 			return 0;
@@ -467,7 +463,7 @@ public OnTrailerUpdate(playerid, vehicleid)
 		i,
 		bool:blocked;
 
-	for (i = 0; i < sizeof(gParam); i++) {
+	for (i = 1; i < sizeof(gParam); i++) {
 		blocked = bool:Protection_GetPlayerParamInt(playerid, Protection:i, PROTECTION_PLAYER_BLOCK_UPDATE);
 		if (blocked) {
 			return 0;
