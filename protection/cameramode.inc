@@ -6,7 +6,7 @@
 */
 
 #if !defined _protection_included
-	#error "Please include protection before camera"
+	#error "Please include protection before camera mode"
 #endif
 
 #if defined _protection_cameramode_included
