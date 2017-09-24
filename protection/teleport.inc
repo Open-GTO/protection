@@ -177,29 +177,31 @@ stock PTeleport_SetPlayerPosFindZ(playerid, Float:x, Float:y, Float:z)
 	Streamer_UpdateEx
 */
 
-stock PTeleport_Streamer_UpdateEx(playerid, Float:x, Float:y, Float:z, worldid = -1, interiorid = -1, type = -1, compensatedtime = -1, freezeplayer = 1)
-{
-	if (compensatedtime != -1) {
-		new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
+#if PROTECTION_USE_STREAMER
+	stock PTeleport_Streamer_UpdateEx(playerid, Float:x, Float:y, Float:z, worldid = -1, interiorid = -1, type = -1, compensatedtime = -1, freezeplayer = 1)
+	{
+		if (compensatedtime != -1) {
+			new bool:is_enabled = Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED) != 0;
 
-		if (is_enabled) {
-			GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
+			if (is_enabled) {
+				GetPlayerPos(playerid, gPrevPos[playerid][0], gPrevPos[playerid][1], gPrevPos[playerid][2]);
 
-			gOldPos[playerid][0] = x;
-			gOldPos[playerid][1] = y;
-			gOldPos[playerid][2] = z;
+				gOldPos[playerid][0] = x;
+				gOldPos[playerid][1] = y;
+				gOldPos[playerid][2] = z;
+			}
 		}
+
+		return Streamer_UpdateEx(playerid, x, y, z, worldid, interiorid, type, compensatedtime, freezeplayer);
 	}
+	#if defined _ALS_Streamer_UpdateEx
+		#undef Streamer_UpdateEx
+	#else
+		#define _ALS_Streamer_UpdateEx
+	#endif
 
-	return Streamer_UpdateEx(playerid, x, y, z, worldid, interiorid, type, compensatedtime, freezeplayer);
-}
-#if defined _ALS_Streamer_UpdateEx
-	#undef Streamer_UpdateEx
-#else
-	#define _ALS_Streamer_UpdateEx
+	#define Streamer_UpdateEx PTeleport_Streamer_UpdateEx
 #endif
-
-#define Streamer_UpdateEx PTeleport_Streamer_UpdateEx
 
 /*
 	SetVehiclePos
