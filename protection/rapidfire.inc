@@ -9,6 +9,10 @@
 	#error "Please include protection before rapidfire"
 #endif
 
+#if !defined _weaponskill_included
+	#error "Please include weaponskill before teleport"
+#endif
+
 #if defined _protection_rapidfire_included
 	#endinput
 #endif
@@ -44,17 +48,17 @@ static
 		0, // 19
 		0, // 20
 		0, // 21
-		160, // 22 - WEAPON_COLT45
-		120, // 23 - WEAPON_SILENCED
-		950, // 24 - WEAPON_DEAGLE
-		800, // 25 - WEAPON_SHOTGUN
-		120, // 26 - WEAPON_SAWEDOFF
-		120, // 27 - WEAPON_SHOTGSPA
-		70, // 28 - WEAPON_UZI
-		70, // 29 - WEAPON_MP5
-		80, // 30 - WEAPON_AK47
-		80, // 31 - WEAPON_M4
-		70, // 32 - WEAPON_TEC9
+		340, // 22 - WEAPON_COLT45
+		440, // 23 - WEAPON_SILENCED
+		900, // 24 - WEAPON_DEAGLE
+		1000, // 25 - WEAPON_SHOTGUN
+		280, // 26 - WEAPON_SAWEDOFF
+		390, // 27 - WEAPON_SHOTGSPA
+		90, // 28 - WEAPON_UZI
+		80, // 29 - WEAPON_MP5
+		90, // 30 - WEAPON_AK47
+		90, // 31 - WEAPON_M4
+		90, // 32 - WEAPON_TEC9
 		1000, // 33 - WEAPON_RIFLE
 		1000, // 34 - WEAPON_SNIPER
 		1000, // 35 - WEAPON_ROCKETLAUNCHER
@@ -69,6 +73,43 @@ static
 		0, // 44
 		0, // 45
 		0 // 46
+	},
+	gWeaponSkillsShotTimes[7][2][2] = {
+		// WEAPONSKILL_PISTOL
+		{
+			{40, 280},
+			{999, 160}
+		},
+		// WEAPONSKILL_PISTOL_SILENCED
+		{
+			{40, 280},
+			{999, 160}
+		},
+		// WEAPONSKILL_DESERT_EAGLE
+		{
+			{200, 750},
+			{0, 0}
+		},
+		// WEAPONSKILL_SHOTGUN
+		{
+			{0, 0},
+			{0, 0}
+		},
+		// WEAPONSKILL_SAWNOFF_SHOTGUN
+		{
+			{999, 120},
+			{0, 0}
+		},
+		// WEAPONSKILL_SPAS12_SHOTGUN
+		{
+			{200, 290},
+			{0, 0}
+		},
+		// WEAPONSKILL_MICRO_UZI
+		{
+			{999, 40},
+			{0, 0}
+		}
 	};
 
 /*
@@ -90,7 +131,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		ping = Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_PING);
 		shot_time = Protection_GetTickDiff(current_tick, gPlayerLastTick[playerid]);
 		gPlayerLastTick[playerid] = current_tick;
-		max_shot_time = Protection_GetWeaponShotTime(weaponid);
+		max_shot_time = Protection_GetWeaponShotTime(weaponid, playerid);
 
 		if (max_shot_time != 0 && shot_time != 0 && shot_time + ping < max_shot_time) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_RAPIDFIRE, "%d < %d", shot_time, max_shot_time);
@@ -119,10 +160,40 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	Protection_GetWeaponShotTime
 */
 
-stock Protection_GetWeaponShotTime(weaponid)
+stock Protection_GetWeaponShotTime(weaponid, playerid = INVALID_PLAYER_ID)
 {
 	if (weaponid < 0 || weaponid > sizeof(gWeaponShotTimes)) {
 		return 0;
+	}
+
+
+	if (playerid != INVALID_PLAYER_ID) {
+		new skill_id = GetWeaponSkillID(weaponid);
+		if (skill_id != INVALID_WEAPON_SKILL_ID) {
+			new
+				skill_level = GetPlayerSkillLevel(playerid, skill_id),
+				shot_time = gWeaponShotTimes[weaponid];
+
+			if (skill_id > sizeof(gWeaponSkillsShotTimes)) {
+				return shot_time;
+			}
+
+			if (gWeaponSkillsShotTimes[skill_id][0][0] == 0) {
+				return shot_time;
+			}
+
+			for (new i = 0; i < sizeof(gWeaponSkillsShotTimes[]); i++) {
+				if (gWeaponSkillsShotTimes[skill_id][i][0] == 0) {
+					continue;
+				}
+
+				if (skill_level >= gWeaponSkillsShotTimes[skill_id][i][0]) {
+					shot_time = gWeaponSkillsShotTimes[skill_id][i][1];
+				}
+			}
+			
+			return shot_time;
+		}
 	}
 
 	return gWeaponShotTimes[weaponid];

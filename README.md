@@ -4,6 +4,7 @@ Flexible server protection system (development).
 # Dependencies
 - [foreach](https://github.com/Open-GTO/foreach)
 - [getspawninfo](https://github.com/Open-GTO/getspawninfo)
+- [weaponskill](https://github.com/Open-GTO/weaponskill)
 
 # Callbacks
 ```Pawn
