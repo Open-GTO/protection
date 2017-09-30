@@ -10,7 +10,7 @@
 #endif
 
 #if !defined _weaponskill_included
-	#error "Please include weaponskill before teleport"
+	#error "Please include weaponskill before rapidfire"
 #endif
 
 #if defined _protection_rapidfire_included
