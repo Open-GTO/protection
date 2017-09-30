@@ -22,6 +22,10 @@
 #define PROTECTION_MAX_WEAPON_SLOTS 13
 #define PROTECTION_PARACHUTE_SLOT_ID 11
 
+#if !defined PROTECTION_WEAPON_ZERO_BULLETS
+	#define PROTECTION_WEAPON_ZERO_BULLETS 3
+#endif
+
 /*
 	Enums
 */
@@ -37,6 +41,7 @@ enum e_PT_WEAPON_INFO {
 
 static
 	gPlayerWeapons[MAX_PLAYERS][PROTECTION_MAX_WEAPON_SLOTS][e_PT_WEAPON_INFO],
+	gPlayerZeroBulletsChecks[MAX_PLAYERS],
 	gWeaponSlots[] = {
 		0, // 0
 		0, // 1 - WEAPON_BRASSKNUCKLE
@@ -181,7 +186,6 @@ stock PWeapon_SetPlayerAmmo(playerid, weaponid, ammo)
 
 #define SetPlayerAmmo PWeapon_SetPlayerAmmo
 
-
 /*
 	OnPlayerSpawn
 */
@@ -209,6 +213,8 @@ public OnPlayerSpawn(playerid)
 			gPlayerWeapons[playerid][slot][e_ID] = weapons[i][e_ID];
 			gPlayerWeapons[playerid][slot][e_Bullets] = weapons[i][e_Bullets];
 		}
+
+		gPlayerZeroBulletsChecks[playerid] = 0;
 	}
 
 	#if defined PWeapon_OnPlayerSpawn
@@ -265,7 +271,16 @@ public Protection_Weapon(playerid)
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_Bullets], bullets);
 	} else {
-		gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+		if (bullets == 0) {
+			gPlayerZeroBulletsChecks[playerid]++;
+
+			if (gPlayerZeroBulletsChecks[playerid] >= PROTECTION_WEAPON_ZERO_BULLETS) {
+				gPlayerZeroBulletsChecks[playerid] = 0;
+				gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+			}
+		} else {
+			gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+		}
 	}
 
 	return 0;
