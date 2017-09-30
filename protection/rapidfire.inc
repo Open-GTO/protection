@@ -87,7 +87,7 @@ static
 		},
 		// WEAPONSKILL_DESERT_EAGLE
 		{
-			{200, 750},
+			{200, 700},
 			{0, 0}
 		},
 		// WEAPONSKILL_SHOTGUN
