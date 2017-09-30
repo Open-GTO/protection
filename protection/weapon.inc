@@ -280,6 +280,7 @@ public Protection_Weapon(playerid)
 			}
 		} else {
 			gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+			gPlayerZeroBulletsChecks[playerid] = 0;
 		}
 	}
 
