@@ -78,14 +78,39 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	new bool:is_enabled = Protection_GetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED) != 0;
+	new
+		bool:is_enabled = Protection_GetParamInt(PROTECTION_KILLFLOOD, PROTECTION_ENABLED) != 0,
+		bool:ret = true;
 
-	if (is_enabled && gPlayerIsDead{playerid}) {
-		Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d", reason);
-		return 0;
+	if (is_enabled) {
+		if (gPlayerIsDead{playerid}) {
+			Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d", reason);
+			return 0;
+		} else if (killerid != INVALID_PLAYER_ID) {
+			new
+				killerid_state = GetPlayerState(killerid),
+				killerid_weapon = GetPlayerWeapon(killerid);
+
+			if (!IsPlayerStreamedIn(playerid, killerid)) {
+				Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d", reason);
+				ret = false;
+			}
+
+			if (killerid_weapon != reason && reason <= WEAPON_PARACHUTE && reason != WEAPON_FLAMETHROWER) {
+				Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d, weapon: %d", reason, killerid_weapon);
+				ret = false;
+			}
+
+			if ((reason == WEAPON_VEHICLE || reason == 50) && killerid_state != PLAYER_STATE_DRIVER) {
+				Protection_GivePlayerWarning(playerid, PROTECTION_KILLFLOOD, "reason: %d, state: %d", reason, killerid_state);
+				ret = false;
+			}
+		}
 	}
 
 	gPlayerIsDead{playerid} = true;
+
+	if (!ret) return 0;
 
 	#if defined PKillflood_OnPlayerDeath
 		return PKillflood_OnPlayerDeath(playerid, killerid, reason);
