@@ -25,8 +25,10 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_VEHICLETUNING, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETUNING, "tuning");
-		return 0;
+		if (GetPlayerInterior(playerid) == 0) {
+			Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETUNING, "tuning");
+			return 0;
+		}
 	}
 
 	#if defined PVeTuning_OnVehicleMod
