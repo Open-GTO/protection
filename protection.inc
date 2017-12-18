@@ -81,6 +81,7 @@ enum Protection {
 	PROTECTION_VEHICLECOLOR,
 	PROTECTION_CAMERA,
 	PROTECTION_CAMERAMODE,
+	PROTECTION_FAKEKILL,
 }
 
 enum ProtectionParams {
@@ -132,6 +133,7 @@ enum ProtectionPlayerInfo {
 #include "protection/vehiclecolor"
 #include "protection/camera"
 #include "protection/cameramode"
+#include "protection/fakekill"
 
 #if PROTECTION_CUSTOM_VENDING
 	#include "protection/vending"
@@ -250,6 +252,10 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_CAMERAMODE, PROTECTION_NAME, "Camera Mode");
 	Protection_SetParamString(PROTECTION_CAMERAMODE, PROTECTION_FUNCTION, "Protection_CameraMode");
 	Protection_SetParamArray(PROTECTION_CAMERAMODE, PROTECTION_AVAILABLE_IDS, {3, 4, 7, 8, 15, 16, 18, 22, 46, 51, 53, 55, 56, 57, 58, 59, 62, 63, 64, -1});
+
+	// fakekill
+	Protection_SetParamInt(PROTECTION_FAKEKILL, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_FAKEKILL, PROTECTION_NAME, "Fake Kill");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);
