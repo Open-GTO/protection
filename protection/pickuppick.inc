@@ -68,10 +68,10 @@ stock Protection_CreatePickup(model, type, Float:X, Float:Y, Float:Z, virtualwor
 	DestroyPickup
 */
 
-stock Protection_DestroyPickup(pickup)
+stock Protection_DestroyPickup(pickupid)
 {
 	gPickups[pickupid][e_IsValid] = false;
-	return DestroyPickup(pickup);
+	return DestroyPickup(pickupid);
 }
 #if defined _ALS_DestroyPickup
 	#undef DestroyPickup
