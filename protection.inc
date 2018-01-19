@@ -82,6 +82,7 @@ enum Protection {
 	PROTECTION_CAMERA,
 	PROTECTION_CAMERAMODE,
 	PROTECTION_FAKEKILL,
+	PROTECTION_VEHICLETUNING,
 }
 
 enum ProtectionParams {
@@ -134,6 +135,7 @@ enum ProtectionPlayerInfo {
 #include "protection/camera"
 #include "protection/cameramode"
 #include "protection/fakekill"
+#include "protection/vehicletuning"
 
 #if PROTECTION_CUSTOM_VENDING
 	#include "protection/vending"
@@ -256,6 +258,10 @@ public OnGameModeInit()
 	// fakekill
 	Protection_SetParamInt(PROTECTION_FAKEKILL, PROTECTION_ENABLED, 1);
 	Protection_SetParamString(PROTECTION_FAKEKILL, PROTECTION_NAME, "Fake Kill");
+
+	// vehicletuning
+	Protection_SetParamInt(PROTECTION_VEHICLETUNING, PROTECTION_ENABLED, 1);
+	Protection_SetParamString(PROTECTION_VEHICLETUNING, PROTECTION_NAME, "Vehicle Tuning");
 
 	// timer
 	SetTimer("Protection_Timer", PROTECTION_TIMER_TIME, 1);

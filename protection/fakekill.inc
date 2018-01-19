@@ -1,7 +1,7 @@
 /*
 
 	About: fakekill protection
-	Author: NexiusTailer
+	Author: Nexius
 	Contributor: ziggi
 
 */
