@@ -1,7 +1,15 @@
 {
-	"entry": "test.pwn",
-	"output": "test.amx",
-	"dependencies": [
-		"sampctl/samp-stdlib"
-	]
+  "user": "Open-GTO",
+  "repo": "protection",
+  "contributors": [
+    "ziggi"
+  ],
+  "entry": "test.pwn",
+  "output": "test.amx",
+  "dependencies": [
+    "sampctl/samp-stdlib",
+    "Open-GTO/weaponskill",
+    "Open-GTO/getspawninfo",
+    "Open-GTO/foreach"
+  ]
 }
