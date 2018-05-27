@@ -102,6 +102,7 @@ stock PMoney_GivePlayerMoney(playerid, money)
 stock PMoney_ResetPlayerMoney(playerid)
 {
 	gPlayerMoney[playerid] = 0;
+	return ResetPlayerMoney(playerid);
 }
 #if defined _ALS_ResetPlayerMoney
 	#undef ResetPlayerMoney
