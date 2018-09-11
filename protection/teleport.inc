@@ -72,9 +72,9 @@ public Protection_Teleport(playerid)
 	}
 
 	// update
-	gOldPos[playerid][0] = pos_x;
-	gOldPos[playerid][1] = pos_y;
-	gOldPos[playerid][2] = pos_z;
+	gPrevPos[playerid][0] = pos_x;
+	gPrevPos[playerid][1] = pos_y;
+	gPrevPos[playerid][2] = pos_z;
 
 	return 0;
 }
