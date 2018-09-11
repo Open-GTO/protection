@@ -266,7 +266,7 @@ public Protection_Weapon(playerid)
 	// bullets
 	if (gPlayerWeapons[playerid][slot][e_Bullets] < bullets) {
 		// set right bullets
-		SetPlayerAmmo(playerid, gPlayerWeapons[playerid][slot][e_ID], gPlayerWeapons[playerid][slot][e_Bullets]);
+		SetPlayerAmmo(playerid, weaponid, gPlayerWeapons[playerid][slot][e_Bullets]);
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_Bullets], bullets);
