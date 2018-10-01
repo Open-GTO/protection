@@ -4,15 +4,11 @@
 #include <weaponskill>
 #include "protection"
 
-main() {}
-
-public OnGameModeInit()
-{
+main() {
 	// enable all protections
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_ENABLED, 1);
 	// redefine name
 	Protection_SetParamString(PROTECTION_TELEPORT, PROTECTION_NAME, "Телепорт");
-	return 1;
 }
 
 public OnPlayerSpawn(playerid)
