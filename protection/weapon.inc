@@ -98,6 +98,62 @@ static
 	};
 
 /*
+	Call function
+*/
+
+forward Protection_Weapon(playerid);
+public Protection_Weapon(playerid)
+{
+	static
+		weaponid,
+		bullets,
+		slot;
+
+	weaponid = GetPlayerWeapon(playerid);
+	bullets = GetPlayerAmmo(playerid);
+	slot = Protection_GetWeaponSlot(weaponid);
+
+	if (weaponid == 0) {
+		return 0;
+	}
+
+	// weapon
+	if (gPlayerWeapons[playerid][slot][e_ID] != weaponid) {
+		// set right weapon
+		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_ID], 0);
+
+		// report
+		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slot][e_ID], weaponid);
+	}
+
+	// bullets
+	if (gPlayerWeapons[playerid][slot][e_Bullets] < bullets) {
+		// set right bullets
+		ResetPlayerWeapons(playerid);
+		for (new i = 0; i < sizeof(gPlayerWeapons[]); i++) {
+			GivePlayerWeapon(playerid, gPlayerWeapons[playerid][i][e_ID], gPlayerWeapons[playerid][i][e_Bullets]);
+		}
+
+		// report
+		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_Bullets], bullets);
+	} else {
+		if (bullets == 0) {
+			gPlayerZeroBulletsChecks{playerid}++;
+
+			if (gPlayerZeroBulletsChecks{playerid} >= PROTECTION_WEAPON_ZERO_BULLETS) {
+				gPlayerZeroBulletsChecks{playerid} = 0;
+				gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+			}
+		} else {
+			gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
+			gPlayerZeroBulletsChecks{playerid} = 0;
+		}
+	}
+
+	return 0;
+}
+
+/*
 	GivePlayerWeapon
 */
 
@@ -238,62 +294,6 @@ public OnPlayerSpawn(playerid)
 #if defined PWeapon_OnPlayerSpawn
 	forward PWeapon_OnPlayerSpawn(playerid);
 #endif
-
-/*
-	Call function
-*/
-
-forward Protection_Weapon(playerid);
-public Protection_Weapon(playerid)
-{
-	static
-		weaponid,
-		bullets,
-		slot;
-
-	weaponid = GetPlayerWeapon(playerid);
-	bullets = GetPlayerAmmo(playerid);
-	slot = Protection_GetWeaponSlot(weaponid);
-
-	if (weaponid == 0) {
-		return 0;
-	}
-
-	// weapon
-	if (gPlayerWeapons[playerid][slot][e_ID] != weaponid) {
-		// set right weapon
-		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_ID], 0);
-
-		// report
-		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slot][e_ID], weaponid);
-	}
-
-	// bullets
-	if (gPlayerWeapons[playerid][slot][e_Bullets] < bullets) {
-		// set right bullets
-		ResetPlayerWeapons(playerid);
-		for (new i = 0; i < sizeof(gPlayerWeapons[]); i++) {
-			GivePlayerWeapon(playerid, gPlayerWeapons[playerid][i][e_ID], gPlayerWeapons[playerid][i][e_Bullets]);
-		}
-
-		// report
-		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_Bullets], bullets);
-	} else {
-		if (bullets == 0) {
-			gPlayerZeroBulletsChecks{playerid}++;
-
-			if (gPlayerZeroBulletsChecks{playerid} >= PROTECTION_WEAPON_ZERO_BULLETS) {
-				gPlayerZeroBulletsChecks{playerid} = 0;
-				gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
-			}
-		} else {
-			gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
-			gPlayerZeroBulletsChecks{playerid} = 0;
-		}
-	}
-
-	return 0;
-}
 
 /*
 	OnPlayerExitVehicle
