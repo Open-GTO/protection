@@ -22,8 +22,13 @@
 #define PROTECTION_MAX_WEAPON_SLOTS 13
 #define PROTECTION_PARACHUTE_SLOT_ID 11
 
+// additional checks count if player got zero bullets
 #if !defined PROTECTION_WEAPON_ZERO_BULLETS
 	#define PROTECTION_WEAPON_ZERO_BULLETS 3
+#endif
+
+#if PROTECTION_WEAPON_ZERO_BULLETS < 0 || PROTECTION_WEAPON_ZERO_BULLETS > 255
+	#error PROTECTION_WEAPON_ZERO_BULLETS should be in 0..255 range
 #endif
 
 /*
@@ -41,7 +46,7 @@ enum e_PT_WEAPON_INFO {
 
 static
 	gPlayerWeapons[MAX_PLAYERS][PROTECTION_MAX_WEAPON_SLOTS][e_PT_WEAPON_INFO],
-	gPlayerZeroBulletsChecks[MAX_PLAYERS],
+	gPlayerZeroBulletsChecks[MAX_PLAYERS char],
 	gWeaponSlots[] = {
 		0, // 0
 		0, // 1 - WEAPON_BRASSKNUCKLE
@@ -214,7 +219,7 @@ public OnPlayerSpawn(playerid)
 			gPlayerWeapons[playerid][slot][e_Bullets] = weapons[i][e_Bullets];
 		}
 
-		gPlayerZeroBulletsChecks[playerid] = 0;
+		gPlayerZeroBulletsChecks{playerid} = 0;
 	}
 
 	#if defined PWeapon_OnPlayerSpawn
@@ -266,21 +271,24 @@ public Protection_Weapon(playerid)
 	// bullets
 	if (gPlayerWeapons[playerid][slot][e_Bullets] < bullets) {
 		// set right bullets
-		SetPlayerAmmo(playerid, weaponid, gPlayerWeapons[playerid][slot][e_Bullets]);
+		ResetPlayerWeapons(playerid);
+		for (new i = 0; i < sizeof(gPlayerWeapons[]); i++) {
+			GivePlayerWeapon(playerid, gPlayerWeapons[playerid][i][e_ID], gPlayerWeapons[playerid][i][e_Bullets]);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "bullets %d < %d", gPlayerWeapons[playerid][slot][e_Bullets], bullets);
 	} else {
 		if (bullets == 0) {
-			gPlayerZeroBulletsChecks[playerid]++;
+			gPlayerZeroBulletsChecks{playerid}++;
 
-			if (gPlayerZeroBulletsChecks[playerid] >= PROTECTION_WEAPON_ZERO_BULLETS) {
-				gPlayerZeroBulletsChecks[playerid] = 0;
+			if (gPlayerZeroBulletsChecks{playerid} >= PROTECTION_WEAPON_ZERO_BULLETS) {
+				gPlayerZeroBulletsChecks{playerid} = 0;
 				gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
 			}
 		} else {
 			gPlayerWeapons[playerid][slot][e_Bullets] = bullets;
-			gPlayerZeroBulletsChecks[playerid] = 0;
+			gPlayerZeroBulletsChecks{playerid} = 0;
 		}
 	}
 
