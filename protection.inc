@@ -128,6 +128,7 @@ enum ProtectionPlayerInfo {
 #include "protection/weapon"
 #include "protection/money"
 #include "protection/killflood"
+#include "protection/weapondamage"
 #include "protection/rapidfire"
 #include "protection/badshot"
 #include "protection/pickuppick"
