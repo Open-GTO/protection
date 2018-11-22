@@ -292,7 +292,7 @@ public OnPlayerConnect(playerid)
 		j;
 
 	for (i = 0; i < sizeof(gPlayerParam[]); i++) {
-		for (j = 0; j < sizeof(gPlayerParam[][])) {
+		for (j = 0; j < sizeof(gPlayerParam[][]); j++) {
 			gPlayerParam[playerid][Protection:i][ProtectionPlayerParams:j] = 0;
 		}
 	}
