@@ -151,10 +151,6 @@ static
 	gPlayerParam[MAX_PLAYERS][Protection][ProtectionPlayerParams],
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
-static const
-	NULL_gPlayerParam[ProtectionPlayerParams],
-	NULL_gPlayerInfo[ProtectionPlayerInfo];
-
 /*
 	OnGameModeInit
 */
@@ -291,10 +287,18 @@ public OnGameModeInit()
 public OnPlayerConnect(playerid)
 {
 	// reset arrays data
-	for (new i = 0; i < sizeof(gParam); i++) {
-		gPlayerParam[playerid][Protection:i] = NULL_gPlayerParam;
+	new
+		i,
+		j;
+
+	for (i = 0; i < sizeof(gPlayerParam[]); i++) {
+		for (j = 0; j < sizeof(gPlayerParam[][])) {
+			gPlayerParam[playerid][Protection:i][ProtectionPlayerParams:j] = 0;
+		}
 	}
-	gPlayerInfo[playerid] = NULL_gPlayerInfo;
+	for (i = 0; i < sizeof(gPlayerInfo[]); i++) {
+		gPlayerInfo[playerid][ProtectionPlayerInfo:i] = 0;
+	}
 
 	// store connect data
 	new
