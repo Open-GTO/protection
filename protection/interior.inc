@@ -24,7 +24,8 @@
 */
 
 static
-	gPlayerInterior[MAX_PLAYERS char];
+	gPlayerInterior[MAX_PLAYERS char],
+	bool:gBlockSpawnReset[MAX_PLAYERS char];
 
 /*
 	OnPlayerConnect
@@ -33,6 +34,7 @@ static
 public OnPlayerConnect(playerid)
 {
 	gPlayerInterior{playerid} = 0;
+	gBlockSpawnReset{playerid} = false;
 
 	#if defined PInterio_OnPlayerConnect
 		return PInterio_OnPlayerConnect(playerid);
@@ -57,7 +59,11 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	gPlayerInterior{playerid} = 0;
+	if (gBlockSpawnReset{playerid}) {
+		gBlockSpawnReset{playerid} = false;
+	} else {
+		gPlayerInterior{playerid} = 0;
+	}
 
 	#if defined PInterio_OnPlayerSpawn
 		return PInterio_OnPlayerSpawn(playerid);
@@ -112,6 +118,10 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 
 stock PInterior_SetPlayerInterior(playerid, interior)
 {
+	if (!Protection_GetPlayerInfoInt(playerid, PROTECTION_PLAYER_SPAWNED)) {
+		gBlockSpawnReset{playerid} = true;
+	}
+
 	gPlayerInterior{playerid} = interior;
 	return SetPlayerInterior(playerid, interior);
 }
