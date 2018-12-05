@@ -89,8 +89,8 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 		Protection_GivePlayerWarning(playerid, PROTECTION_INTERIOR, "%d != %d", gPlayerInterior{playerid}, newinteriorid);
 	}
 
-	#if defined Interior_OnPlayerInteriorChange
-		return Interior_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
+	#if defined PInterio_OnPlayerInteriorChange
+		return PInterio_OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid);
 	#else
 		return 1;
 	#endif
