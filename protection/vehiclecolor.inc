@@ -25,7 +25,10 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
 
 	if (is_enabled) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLECOLOR, "respray");
-		return 0;
+
+		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE)) {
+			return 0;
+		}
 	}
 
 	#if defined PVeColor_OnVehicleRespray
@@ -55,7 +58,10 @@ public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 
 	if (is_enabled) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLECOLOR, "paintjob");
-		return 0;
+
+		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE)) {
+			return 0;
+		}
 	}
 
 	#if defined PVeColor_OnVehiclePaintjob

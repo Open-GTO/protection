@@ -24,9 +24,13 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
+		new bool:countermeasure = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_COUNTERMEASURE) != 0;
+
 		if(!Protection_IsBulletWeapon(weaponid)) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "weaponid: %d, hittype: %d, hitid: %d", weaponid, hittype, hitid);
-			return 0;
+			if (countermeasure) {
+				return 0;
+			}
 		}
 
 		switch (hittype) {
@@ -38,12 +42,16 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 				if (vehicleid == hitid) {
 					Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "hittype: %d, hitid: %d, vehicleid: %d", hittype, hitid, vehicleid);
-					return 0;
+					if (countermeasure) {
+						return 0;
+					}
 				}
 			}
 			default: {
 				Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "hittype: %d, hitid: %d", hittype, hitid);
-				return 0;
+				if (countermeasure) {
+					return 0;
+				}
 			}
 		}
 	}

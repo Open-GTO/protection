@@ -41,7 +41,9 @@ public Protection_Armour(playerid)
 
 	if (current_armour > gPlayerArmour[playerid]) {
 		// set right armour
-		SetPlayerArmour(playerid, gPlayerArmour[playerid]);
+		if (Protection_GetParamInt(PROTECTION_ARMOUR, PROTECTION_COUNTERMEASURE)) {
+			SetPlayerArmour(playerid, gPlayerArmour[playerid]);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_ARMOUR, "%.2f > %.2f", current_armour, gPlayerArmour[playerid]);

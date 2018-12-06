@@ -61,7 +61,9 @@ public Protection_Camera(playerid)
 		&& distance_player_old > max_distance
 	) {
 		// set right pos
-		SetCameraBehindPlayer(playerid);
+		if (Protection_GetParamInt(PROTECTION_CAMERA, PROTECTION_COUNTERMEASURE)) {
+			SetCameraBehindPlayer(playerid);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_CAMERA, "%.2f | %.2f | %.2f | %.2f > %.2f", distance_prev, distance_old, distance_player_prev, distance_player_old, max_distance);

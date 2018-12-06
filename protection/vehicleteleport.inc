@@ -38,13 +38,15 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 		max_distance = Protection_GetParamFloat(PROTECTION_VEHICLETELEPORT, PROTECTION_MAX_DISTANCE);
 
 		if (distance > max_distance && pos_z > -45.0) {
-			// set right pos and angle
-			SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
-			SetVehicleZAngle(vehicleid, angle);
-
 			// report
 			Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETELEPORT, "%.2f > %.2f", distance, max_distance);
-			return 0;
+
+			// set right pos and angle
+			if (Protection_GetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_COUNTERMEASURE)) {
+				SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
+				SetVehicleZAngle(vehicleid, angle);
+				return 0;
+			}
 		}
 	}
 

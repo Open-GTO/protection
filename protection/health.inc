@@ -41,7 +41,9 @@ public Protection_Health(playerid)
 
 	if (current_health > gPlayerHealth[playerid]) {
 		// set right health
-		SetPlayerHealth(playerid, gPlayerHealth[playerid]);
+		if (Protection_GetParamInt(PROTECTION_HEALTH, PROTECTION_COUNTERMEASURE)) {
+			SetPlayerHealth(playerid, gPlayerHealth[playerid]);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_HEALTH, "%.2f > %.2f", current_health, gPlayerHealth[playerid]);

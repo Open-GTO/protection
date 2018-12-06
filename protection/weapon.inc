@@ -120,7 +120,9 @@ public Protection_Weapon(playerid)
 	// weapon
 	if (gPlayerWeapons[playerid][slot][e_ID] != weaponid) {
 		// set right weapon
-		GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_ID], 0);
+		if (Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_COUNTERMEASURE)) {
+			GivePlayerWeapon(playerid, gPlayerWeapons[playerid][slot][e_ID], 0);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_WEAPON, "weaponid %d != %d", gPlayerWeapons[playerid][slot][e_ID], weaponid);
@@ -129,9 +131,11 @@ public Protection_Weapon(playerid)
 	// bullets
 	if (gPlayerWeapons[playerid][slot][e_Bullets] < bullets) {
 		// set right bullets
-		ResetPlayerWeapons(playerid);
-		for (new i = 0; i < sizeof(gPlayerWeapons[]); i++) {
-			GivePlayerWeapon(playerid, gPlayerWeapons[playerid][i][e_ID], gPlayerWeapons[playerid][i][e_Bullets]);
+		if (Protection_GetParamInt(PROTECTION_WEAPON, PROTECTION_COUNTERMEASURE)) {
+			ResetPlayerWeapons(playerid);
+			for (new i = 0; i < sizeof(gPlayerWeapons[]); i++) {
+				GivePlayerWeapon(playerid, gPlayerWeapons[playerid][i][e_ID], gPlayerWeapons[playerid][i][e_Bullets]);
+			}
 		}
 
 		// report

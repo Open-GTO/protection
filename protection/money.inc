@@ -66,8 +66,10 @@ public Protection_Money(playerid)
 
 	if (current_money > gPlayerMoney[playerid]) {
 		// set right money
-		ResetPlayerMoney(playerid);
-		GivePlayerMoney(playerid, gPlayerMoney[playerid]);
+		if (Protection_GetParamInt(PROTECTION_MONEY, PROTECTION_COUNTERMEASURE)) {
+			ResetPlayerMoney(playerid);
+			GivePlayerMoney(playerid, gPlayerMoney[playerid]);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_MONEY, "%d > %d", current_money, gPlayerMoney[playerid]);

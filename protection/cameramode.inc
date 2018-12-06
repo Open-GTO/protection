@@ -27,7 +27,9 @@ public Protection_CameraMode(playerid)
 	// checks
 	if (!Protection_IsValidCameraMode(camera_mode)) {
 		// block player updates
-		Protection_SetPlayerParamInt(playerid, PROTECTION_CAMERAMODE, PROTECTION_PLAYER_BLOCK_UPDATE, 1);
+		if (Protection_GetParamInt(PROTECTION_CAMERAMODE, PROTECTION_COUNTERMEASURE)) {
+			Protection_SetPlayerParamInt(playerid, PROTECTION_CAMERAMODE, PROTECTION_PLAYER_BLOCK_UPDATE, 1);
+		}
 
 		// report
 		Protection_GivePlayerWarning(playerid, PROTECTION_CAMERAMODE, "camera mode: %d", camera_mode);
