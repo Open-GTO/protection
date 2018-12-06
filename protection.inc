@@ -221,7 +221,7 @@ public OnGameModeInit()
 	Protection_SetParamString(PROTECTION_KILLFLOOD, PROTECTION_NAME, "Kill Flood");
 
 	// weapondamage
-	Protection_SetParamInt(PROTECTION_WEAPONDAMAGE, PROTECTION_ENABLED, 1);
+	Protection_SetParamInt(PROTECTION_WEAPONDAMAGE, PROTECTION_ENABLED, 0);
 	Protection_SetParamString(PROTECTION_WEAPONDAMAGE, PROTECTION_NAME, "Weapon Damage");
 
 	// rapidfire
