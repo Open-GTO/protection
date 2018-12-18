@@ -91,7 +91,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_INTERIOR, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled && gPlayerInterior{playerid} != newinteriorid) {
-		if (Protection_GetParamInt(PROTECTION_INTERIOR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_INTERIOR, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+		if (Protection_GetParamInt(PROTECTION_INTERIOR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_INTERIOR, PROTECTION_PLAYER_COUNTERMEASURE)) {
 			SetPlayerInterior(playerid, gPlayerInterior{playerid});
 		}
 

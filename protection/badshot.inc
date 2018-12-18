@@ -24,10 +24,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	new bool:is_enabled = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_ENABLED) != 0;
 
 	if (is_enabled) {
-		new 
-			bool:countermeasure = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_COUNTERMEASURE) != 0;
-
-		countermeasure = Protection_GetPlayerParamInt(playerid, PROTECTION_BADSHOT, PROTECTION_PLAYER_CM_DISABLED) != 1;
+		new bool:countermeasure = Protection_GetParamInt(PROTECTION_BADSHOT, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_BADSHOT, PROTECTION_PLAYER_COUNTERMEASURE);
 
 		if(!Protection_IsBulletWeapon(weaponid)) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_BADSHOT, "weaponid: %d, hittype: %d, hitid: %d", weaponid, hittype, hitid);

@@ -42,7 +42,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 			Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETELEPORT, "%.2f > %.2f", distance, max_distance);
 
 			// set right pos and angle
-			if (Protection_GetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLETELEPORT, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+			if (Protection_GetParamInt(PROTECTION_VEHICLETELEPORT, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLETELEPORT, PROTECTION_PLAYER_COUNTERMEASURE)) {
 				SetVehiclePos(vehicleid, pos_x, pos_y, pos_z);
 				SetVehicleZAngle(vehicleid, angle);
 				return 0;

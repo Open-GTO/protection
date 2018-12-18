@@ -28,7 +28,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 		if (GetPlayerInterior(playerid) == 0) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLETUNING, "tuning");
 
-			if (Protection_GetParamInt(PROTECTION_VEHICLETUNING, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLETUNING, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+			if (Protection_GetParamInt(PROTECTION_VEHICLETUNING, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLETUNING, PROTECTION_PLAYER_COUNTERMEASURE)) {
 				return 0;
 			}
 		}

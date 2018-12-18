@@ -60,7 +60,7 @@ public Protection_Teleport(playerid)
 
 	if (distance_prev > max_distance && distance_old > max_distance) {
 		// set right pos
-		if (Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_TELEPORT, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+		if (Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_TELEPORT, PROTECTION_PLAYER_COUNTERMEASURE)) {
 			if (vehicleid) {
 				SetVehiclePos(vehicleid, gOldPos[playerid][0], gOldPos[playerid][1], gOldPos[playerid][2]);
 			} else {

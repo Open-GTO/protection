@@ -41,7 +41,7 @@ public Protection_Health(playerid)
 
 	if (current_health > gPlayerHealth[playerid]) {
 		// set right health
-		if (Protection_GetParamInt(PROTECTION_HEALTH, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_HEALTH, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+		if (Protection_GetParamInt(PROTECTION_HEALTH, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_HEALTH, PROTECTION_PLAYER_COUNTERMEASURE)) {
 			SetPlayerHealth(playerid, gPlayerHealth[playerid]);
 		}
 

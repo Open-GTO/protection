@@ -101,8 +101,8 @@ enum ProtectionParams {
 }
 
 enum ProtectionPlayerParams {
-	PROTECTION_PLAYER_DISABLED,
-	PROTECTION_PLAYER_CM_DISABLED,
+	bool:PROTECTION_PLAYER_DISABLED,
+	bool:PROTECTION_PLAYER_COUNTERMEASURE,
 	PROTECTION_PLAYER_WARNING_COUNT,
 	PROTECTION_PLAYER_BLOCK_UPDATE,
 }
@@ -154,7 +154,7 @@ static
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
 static const
-	NULL_gPlayerParam[ProtectionPlayerParams],
+	NULL_gPlayerParam[ProtectionPlayerParams] = {false, true, 0, 0},
 	NULL_gPlayerInfo[ProtectionPlayerInfo];
 
 /*

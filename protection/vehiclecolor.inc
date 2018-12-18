@@ -26,7 +26,7 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
 	if (is_enabled) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLECOLOR, "respray");
 
-		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLECOLOR, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLECOLOR, PROTECTION_PLAYER_COUNTERMEASURE)) {
 			return 0;
 		}
 	}
