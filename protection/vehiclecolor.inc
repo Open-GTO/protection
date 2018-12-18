@@ -26,7 +26,7 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
 	if (is_enabled) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLECOLOR, "respray");
 
-		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLECOLOR, PROTECTION_PLAYER_COUNTERMEASURE)) {
+		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_VEHICLECOLOR, PROTECTION_PLAYER_COUNTERACTION)) {
 			return 0;
 		}
 	}
@@ -59,7 +59,7 @@ public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 	if (is_enabled) {
 		Protection_GivePlayerWarning(playerid, PROTECTION_VEHICLECOLOR, "paintjob");
 
-		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERMEASURE)) {
+		if (Protection_GetParamInt(PROTECTION_VEHICLECOLOR, PROTECTION_COUNTERACTION)) {
 			return 0;
 		}
 	}

@@ -61,7 +61,7 @@ public Protection_Camera(playerid)
 		&& distance_player_old > max_distance
 	) {
 		// set right pos
-		if (Protection_GetParamInt(PROTECTION_CAMERA, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_CAMERA, PROTECTION_PLAYER_COUNTERMEASURE)) {
+		if (Protection_GetParamInt(PROTECTION_CAMERA, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_CAMERA, PROTECTION_PLAYER_COUNTERACTION)) {
 			SetCameraBehindPlayer(playerid);
 		}
 
