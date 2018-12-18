@@ -41,7 +41,7 @@ public Protection_Armour(playerid)
 
 	if (current_armour > gPlayerArmour[playerid]) {
 		// set right armour
-		if (Protection_GetParamInt(PROTECTION_ARMOUR, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_ARMOUR, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+		if (Protection_GetParamInt(PROTECTION_ARMOUR, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_ARMOUR, PROTECTION_PLAYER_COUNTERACTION)) {
 			SetPlayerArmour(playerid, gPlayerArmour[playerid]);
 		}
 

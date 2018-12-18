@@ -45,7 +45,7 @@ public Protection_SpecialAction(playerid)
 			gPlayerSpecialAction{playerid} = SPECIAL_ACTION_NONE;
 		} else {
 			// set right special action
-			if (Protection_GetParamInt(PROTECTION_SPECIALACTION, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_SPECIALACTION, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+			if (Protection_GetParamInt(PROTECTION_SPECIALACTION, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_SPECIALACTION, PROTECTION_PLAYER_COUNTERACTION)) {
 				SetPlayerSpecialAction(playerid, gPlayerSpecialAction{playerid});
 			}
 

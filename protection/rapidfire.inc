@@ -136,7 +136,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		if (max_shot_time != 0 && shot_time != 0 && shot_time + ping < max_shot_time) {
 			Protection_GivePlayerWarning(playerid, PROTECTION_RAPIDFIRE, "%d < %d", shot_time, max_shot_time);
 
-			if (Protection_GetParamInt(PROTECTION_RAPIDFIRE, PROTECTION_COUNTERMEASURE) && Protection_GetPlayerParamInt(playerid, PROTECTION_RAPIDFIRE, PROTECTION_PLAYER_CM_DISABLED) != 1) {
+			if (Protection_GetParamInt(PROTECTION_RAPIDFIRE, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_RAPIDFIRE, PROTECTION_PLAYER_COUNTERACTION)) {
 				return 0;
 			}
 		}

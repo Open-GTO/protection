@@ -97,12 +97,12 @@ enum ProtectionParams {
 	Float:PROTECTION_MAX_VEHICLE_DISTANCE,
 	PROTECTION_MAX_PING,
 	PROTECTION_AVAILABLE_IDS[PROTECTION_MAX_AVAILABLE_IDS],
-	PROTECTION_COUNTERMEASURE,
+	PROTECTION_COUNTERACTION,
 }
 
 enum ProtectionPlayerParams {
-	PROTECTION_PLAYER_DISABLED,
-	PROTECTION_PLAYER_CM_DISABLED,
+	bool:PROTECTION_PLAYER_DISABLED,
+	bool:PROTECTION_PLAYER_COUNTERACTION,
 	PROTECTION_PLAYER_WARNING_COUNT,
 	PROTECTION_PLAYER_BLOCK_UPDATE,
 }
@@ -153,6 +153,10 @@ static
 	gPlayerParam[MAX_PLAYERS][Protection][ProtectionPlayerParams],
 	gPlayerInfo[MAX_PLAYERS][ProtectionPlayerInfo];
 
+static const
+	NULL_gPlayerParam[ProtectionPlayerParams] = {false, true, 0, 0},
+	NULL_gPlayerInfo[ProtectionPlayerInfo];
+
 /*
 	OnGameModeInit
 */
@@ -162,7 +166,7 @@ public OnGameModeInit()
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_CHECK_DELAY, 1000);
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_MAX_WARNINGS, 3);
 	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_SPAWN_DELAY, 600);
-	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_COUNTERMEASURE, 1);
+	Protection_SetParamInt(PROTECTION_ALL, PROTECTION_COUNTERACTION, 1);
 
 	// teleport
 	Protection_SetParamInt(PROTECTION_TELEPORT, PROTECTION_ENABLED, 1);
@@ -290,18 +294,10 @@ public OnGameModeInit()
 public OnPlayerConnect(playerid)
 {
 	// reset arrays data
-	new
-		i,
-		j;
-
-	for (i = 0; i < sizeof(gPlayerParam[]); i++) {
-		for (j = 0; j < sizeof(gPlayerParam[][]); j++) {
-			gPlayerParam[playerid][Protection:i][ProtectionPlayerParams:j] = 0;
-		}
+	for (new i = 0; i < sizeof(gParam); i++) {
+		gPlayerParam[playerid][Protection:i] = NULL_gPlayerParam;
 	}
-	for (i = 0; i < sizeof(gPlayerInfo[]); i++) {
-		gPlayerInfo[playerid][ProtectionPlayerInfo:i] = 0;
-	}
+	gPlayerInfo[playerid] = NULL_gPlayerInfo;
 
 	// store connect data
 	new
