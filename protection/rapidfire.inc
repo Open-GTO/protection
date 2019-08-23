@@ -82,7 +82,7 @@ static
 		},
 		// WEAPONSKILL_PISTOL_SILENCED
 		{
-			{40, 380},
+			{500, 380},
 			{999, 360}
 		},
 		// WEAPONSKILL_DESERT_EAGLE
