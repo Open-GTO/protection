@@ -34,8 +34,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		}
 
 		switch (hittype) {
-			case BULLET_HIT_TYPE_NONE,
-			     BULLET_HIT_TYPE_OBJECT, BULLET_HIT_TYPE_PLAYER_OBJECT: {
+			case BULLET_HIT_TYPE_NONE, BULLET_HIT_TYPE_OBJECT,
+			     BULLET_HIT_TYPE_PLAYER_OBJECT: {
 			}
 			case BULLET_HIT_TYPE_PLAYER: {
 				if (IsPlayerInAnyVehicle(playerid) && GetPlayerVehicleID(playerid) == GetPlayerVehicleID(hitid)) {
