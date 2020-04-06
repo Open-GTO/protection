@@ -58,7 +58,7 @@ public Protection_Teleport(playerid)
 		max_distance = Protection_GetParamFloat(PROTECTION_TELEPORT, PROTECTION_MAX_DISTANCE);
 	}
 
-	if (distance_prev > max_distance && distance_old > max_distance) {
+	if (distance_prev > max_distance && distance_old > max_distance && pos_z > -95.0) {
 		// set right pos
 		if (Protection_GetParamInt(PROTECTION_TELEPORT, PROTECTION_COUNTERACTION) && Protection_GetPlayerParamInt(playerid, PROTECTION_TELEPORT, PROTECTION_PLAYER_COUNTERACTION)) {
 			if (vehicleid) {
